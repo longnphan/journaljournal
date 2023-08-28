@@ -1,10 +1,10 @@
 import React from "react";
-import { NavbarSimple } from "./components/NavbarSimple";
+import { NavBar } from "./components/NavBar";
 
 function App() {
   return (
     <>
-      <NavbarSimple />
+      <NavBar />
     </>
   );
 }
