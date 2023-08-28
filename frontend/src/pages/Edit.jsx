@@ -6,12 +6,15 @@ import {
   Textarea,
   Typography,
 } from "@material-tailwind/react";
+import { useParams } from "react-router-dom";
 
-function Entry() {
+function Edit() {
   const [input, setInput] = useState({
     title: "",
     entry: "",
   });
+
+  const { id } = useParams();
 
   const handleOnChange = e => {
     const name = e.target.name;
@@ -31,7 +34,7 @@ function Entry() {
         shadow={false}
       >
         <Typography variant="h4" color="blue-gray">
-          Add New Entry
+          Edit Entry
         </Typography>
 
         <form className="flex flex-col items-center mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
@@ -61,4 +64,4 @@ function Entry() {
   );
 }
 
-export default Entry;
+export default Edit;
