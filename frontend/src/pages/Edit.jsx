@@ -11,7 +11,7 @@ import { useParams } from "react-router-dom";
 function Edit() {
   const [input, setInput] = useState({
     title: "",
-    entry: "",
+    message: "",
   });
 
   const { id } = useParams();
@@ -49,9 +49,9 @@ function Edit() {
 
             <Textarea
               size="lg"
-              label="Entry"
-              name="entry"
-              value={input.entry}
+              label="Message"
+              name="message"
+              value={input.message}
               onChange={handleOnChange}
             />
           </div>

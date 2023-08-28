@@ -10,7 +10,7 @@ import {
 function Entry() {
   const [input, setInput] = useState({
     title: "",
-    entry: "",
+    message: "",
   });
 
   const handleOnChange = e => {
@@ -46,9 +46,9 @@ function Entry() {
 
             <Textarea
               size="lg"
-              label="Entry"
-              name="entry"
-              value={input.entry}
+              label="Message"
+              name="message"
+              value={input.message}
               onChange={handleOnChange}
             />
           </div>
