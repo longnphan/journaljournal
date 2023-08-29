@@ -73,7 +73,7 @@ function ProfileMenu() {
           </Typography>
         </MenuItem>
         <MenuItem
-          onClick={() => alert("the click works")}
+          onClick={() => navigate("./update")}
           className="flex items-center gap-2 rounded"
         >
           <Cog6ToothIcon className="h-4 w-4" strokeWidth="2" />
@@ -87,7 +87,7 @@ function ProfileMenu() {
           </Typography>
         </MenuItem>
         <MenuItem
-          onClick={() => alert("the click works")}
+          onClick={() => navigate("./inbox")}
           className="flex items-center gap-2 rounded"
         >
           <InboxArrowDownIcon className="h-4 w-4" strokeWidth="2" />
@@ -101,7 +101,7 @@ function ProfileMenu() {
           </Typography>
         </MenuItem>
         <MenuItem
-          onClick={() => alert("the click works")}
+          onClick={() => navigate("./help")}
           className="flex items-center gap-2 rounded"
         >
           <LifebuoyIcon className="h-4 w-4" strokeWidth="2" />

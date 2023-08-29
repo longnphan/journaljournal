@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// match password to hashed password in database
+// match password to hashed password in DB
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
@@ -37,7 +37,6 @@ userSchema.pre("save", async function (next) {
     next();
   }
 
-  // this.password = await bcrypt.hash(this.password, (await process.env.SALT_ROUNDS));
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
