@@ -1,4 +1,7 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../store/authSlice";
+import { useDispatch } from "react-redux";
 import {
   Navbar,
   Collapse,
@@ -24,34 +27,17 @@ import {
   UsersIcon,
 } from "@heroicons/react/24/outline";
 
-// profile menu component
-const profileMenuItems = [
-  {
-    label: "My Profile",
-    icon: UserCircleIcon,
-  },
-  {
-    label: "Edit Profile",
-    icon: Cog6ToothIcon,
-  },
-  {
-    label: "Inbox",
-    icon: InboxArrowDownIcon,
-  },
-  {
-    label: "Help",
-    icon: LifebuoyIcon,
-  },
-  {
-    label: "Sign Out",
-    icon: PowerIcon,
-  },
-];
-
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const closeMenu = () => setIsMenuOpen(false);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/journal");
+  };
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -71,33 +57,78 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon }, key) => {
-          const isLastItem = key === profileMenuItems.length - 1;
-          return (
-            <MenuItem
-              key={label}
-              onClick={closeMenu}
-              className={`flex items-center gap-2 rounded ${
-                isLastItem
-                  ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                  : ""
-              }`}
-            >
-              {React.createElement(icon, {
-                className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
-                strokeWidth: 2,
-              })}
-              <Typography
-                as="span"
-                variant="small"
-                className="font-normal"
-                color={isLastItem ? "red" : "inherit"}
-              >
-                {label}
-              </Typography>
-            </MenuItem>
-          );
-        })}
+        return (
+        <MenuItem
+          onClick={() => alert("the click works")}
+          className="flex items-center gap-2 rounded"
+        >
+          <UserCircleIcon className="h-4 w-4" strokeWidth="2" />
+          <Typography
+            as="span"
+            variant="small"
+            className="font-normal"
+            color="inherit"
+          >
+            My Profile
+          </Typography>
+        </MenuItem>
+        <MenuItem
+          onClick={() => alert("the click works")}
+          className="flex items-center gap-2 rounded"
+        >
+          <Cog6ToothIcon className="h-4 w-4" strokeWidth="2" />
+          <Typography
+            as="span"
+            variant="small"
+            className="font-normal"
+            color="inherit"
+          >
+            Edit Profile
+          </Typography>
+        </MenuItem>
+        <MenuItem
+          onClick={() => alert("the click works")}
+          className="flex items-center gap-2 rounded"
+        >
+          <InboxArrowDownIcon className="h-4 w-4" strokeWidth="2" />
+          <Typography
+            as="span"
+            variant="small"
+            className="font-normal"
+            color="inherit"
+          >
+            Inbox
+          </Typography>
+        </MenuItem>
+        <MenuItem
+          onClick={() => alert("the click works")}
+          className="flex items-center gap-2 rounded"
+        >
+          <LifebuoyIcon className="h-4 w-4" strokeWidth="2" />
+          <Typography
+            as="span"
+            variant="small"
+            className="font-normal"
+            color="inherit"
+          >
+            Help
+          </Typography>
+        </MenuItem>
+        <MenuItem
+          onClick={handleLogout}
+          className="flex items-center gap-2 rounded hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+        >
+          <PowerIcon className="h-4 w-4 text-red-500" strokeWidth="2" />
+          <Typography
+            as="span"
+            variant="small"
+            className="font-normal"
+            color="red"
+          >
+            Sign Out
+          </Typography>
+        </MenuItem>
+        );
       </MenuList>
     </Menu>
   );
@@ -185,4 +216,3 @@ export function NavBar() {
     </Navbar>
   );
 }
-

@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Register() {
   const [input, setInput] = useState({
@@ -15,9 +17,12 @@ function Register() {
     setInput(prev => ({ ...prev, [name]: input }));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     if (input.password !== input.pwConfirm) alert("passwords don't match");
+
+    const authRes = await axios.post("/api/user/auth", input);
+    const token = authRes.data.token;
   };
 
   return (
@@ -74,12 +79,12 @@ function Register() {
             className="mt-4 mb-2 text-center font-normal"
           >
             Already have an account?{" "}
-            <a
-              href="#"
+            <Link
+              to={"/login"}
               className="font-medium text-blue-500 transition-colors hover:text-blue-700"
             >
               Sign In
-            </a>
+            </Link>
           </Typography>
         </form>
       </Card>
