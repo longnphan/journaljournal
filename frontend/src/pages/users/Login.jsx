@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { setUser } from "../../store/authSlice";
+import { setUser } from "../../../store/authSlice";
 import { useDispatch } from "react-redux";
 
 function Login() {

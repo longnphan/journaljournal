@@ -1,9 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import Edit from "./pages/Edit";
 import Entry from "./pages/Entry";
+import Help from "./pages/Help";
+import Inbox from "./pages/Inbox";
 import Journal from "./pages/Journal";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Login from "./pages/users/Login";
+import Register from "./pages/users/Register";
+import Update from "./pages/users/Update";
 import { NavBar } from "./components/NavBar";
 
 function App() {
@@ -13,10 +16,13 @@ function App() {
       <Routes>
         {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/" element={<Login />} />
+        <Route path="/help" element={<Help />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/entry" element={<Entry />} />
+        <Route path="/update" element={<Update />} />
+        <Route path="/journal/entry" element={<Entry />} />
+        <Route path="/inbox" element={<Inbox />} />
         <Route path="/journal" element={<Journal />} />
-        <Route path="/edit/:id" element={<Edit />} />
+        <Route path="/journal/:id" element={<Edit />} />
       </Routes>
     </>
   );
