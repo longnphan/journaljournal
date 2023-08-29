@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { setUser } from "../../store/authSlice";
+import { useDispatch } from "react-redux";
 
 function Login() {
   const [input, setInput] = useState({
@@ -7,14 +11,27 @@ function Login() {
     password: "",
   });
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleOnChange = e => {
     const name = e.target.name;
     const input = e.target.value;
     setInput(prev => ({ ...prev, [name]: input }));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
+
+    try {
+      const authRes = await axios.post("/api/user/auth", input);
+
+      console.log("This is authRes in Login.jsx:", authRes.data);
+      dispatch(setUser(authRes.data));
+      navigate("/journal");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
