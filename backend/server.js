@@ -1,14 +1,25 @@
-require('dotenv').config()
+require("dotenv").config();
+const cookieParser = require("cookie-parser");
+const userRoutes = require("./routes/userRoutes");
+const journalRoutes = require("./routes/journalRoutes");
 
-const express = require('express')
-const cors = require('cors')
-const app = express()
-const PORT = 8080
+const express = require("express");
+const cors = require("cors");
+const app = express();
+const PORT = 8080;
 
-const connectDB = require('./config')
-connectDB()
+const connectDB = require("./config");
+connectDB();
 
-app.use(express.json())
-app.use(cors())
+// middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+app.use(cookieParser());
 
+app.use("/api/journal", journalRoutes);
+app.use("/api/user", userRoutes);
 
+app.listen(PORT, () => {
+  console.log("Listening to port:", PORT);
+});

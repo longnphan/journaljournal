@@ -3,8 +3,9 @@ const mongoose = require("mongoose");
 const inboxSchema = new mongoose.Schema(
   {
     user: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
+      ref: "User",
     },
     subject: {
       type: String,
@@ -30,9 +31,7 @@ const entrySchema = new Schema(
       type: String,
       required: true,
     },
-    inbox: {
-      type: [inboxSchema],
-    },
+    inbox: [inboxSchema],
   },
   { timestamps: true }
 );
