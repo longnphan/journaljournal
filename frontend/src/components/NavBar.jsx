@@ -151,23 +151,39 @@ const navListItems = [
 ];
 
 function NavList() {
+  const navigate = useNavigate();
+
   return (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
-      {navListItems.map(({ label, icon }, key) => (
-        <Typography
-          key={label}
-          as="a"
-          href="#"
-          variant="small"
-          color="blue-gray"
-          className="font-normal"
+      <Typography variant="small" color="blue-gray" className="font-normal">
+        <MenuItem
+          className="flex items-center gap-2 lg:rounded-full"
+          onClick={() => navigate("./journal")}
         >
-          <MenuItem className="flex items-center gap-2 lg:rounded-full">
-            {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
-            {label}
-          </MenuItem>
-        </Typography>
-      ))}
+          <CalendarDaysIcon className="h-[18px] w-[18px]" />
+          Entries
+        </MenuItem>
+      </Typography>
+
+      <Typography variant="small" color="blue-gray" className="font-normal">
+        <MenuItem
+          className="flex items-center gap-2 lg:rounded-full"
+          onClick={() => navigate("./calendar")}
+        >
+          <BookOpenIcon className="h-[18px] w-[18px]" />
+          Calendar
+        </MenuItem>
+      </Typography>
+
+      <Typography variant="small" color="blue-gray" className="font-normal">
+        <MenuItem
+          className="flex items-center gap-2 lg:rounded-full"
+          onClick={() => navigate("./friends")}
+        >
+          <UsersIcon className="h-[18px] w-[18px]" />
+          Friends
+        </MenuItem>
+      </Typography>
     </ul>
   );
 }
@@ -175,6 +191,7 @@ function NavList() {
 // Main NavBar component
 export function NavBar() {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const toggleIsNavOpen = () => setIsNavOpen(cur => !cur);
 
@@ -190,9 +207,8 @@ export function NavBar() {
       <div className="relative mx-auto flex items-center text-blue-gray-900">
         <PencilSquareIcon className="h-6 w-6" />
         <Typography
-          as="a"
-          href="#"
           className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
+          onClick={() => navigate("./")}
         >
           Journal++
         </Typography>
