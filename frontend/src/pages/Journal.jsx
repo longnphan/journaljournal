@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
 function Journal() {
   return (
-    <div>Journal Page</div>
-  )
+    <>
+      <div>Journal Page</div>
+    </>
+  );
 }
 
-export default Journal
+export default Journal;
