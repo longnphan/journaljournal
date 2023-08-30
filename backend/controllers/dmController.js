@@ -24,4 +24,15 @@ const getDm = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { createDm, getDm };
+const deleteDm = asyncHandler(async (req, res) => {
+  const message = await Dm.findOneAndDelete({ _id: req.params.id });
+
+  if (message) {
+    res.status(200).json({ message: "Message was successfully deleted" });
+  } else {
+    res.status(400);
+    throw new Error("Message not found");
+  }
+});
+
+module.exports = { createDm, getDm, deleteDm };

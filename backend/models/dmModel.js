@@ -13,6 +13,7 @@ const dmSchema = new mongoose.Schema(
     subject: {
       type: String,
       required: true,
+      default: "(No Subject)",
     },
     message: {
       type: String,
