@@ -134,22 +134,6 @@ function ProfileMenu() {
   );
 }
 
-// nav list component
-const navListItems = [
-  {
-    label: "Entries",
-    icon: BookOpenIcon,
-  },
-  {
-    label: "Calendar",
-    icon: CalendarDaysIcon,
-  },
-  {
-    label: "Friends",
-    icon: UsersIcon,
-  },
-];
-
 function NavList() {
   const navigate = useNavigate();
 
