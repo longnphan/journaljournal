@@ -14,6 +14,7 @@ const createDm = asyncHandler(async (req, res) => {
 });
 
 const getDm = asyncHandler(async (req, res) => {
+
   const messages = await Dm.find({});
 
   if (messages) {

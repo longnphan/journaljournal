@@ -35,7 +35,7 @@ function Login() {
   };
 
   return (
-    <Card className="mt-6 my-8 w-96 mx-auto">
+    <Card className="mt-6 my-8 w-1/2 mx-auto">
       <Card
         className="flex flex-col items-center"
         color="transparent"
