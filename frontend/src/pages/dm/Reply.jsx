@@ -1,26 +1,23 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
   Input,
-  Option,
-  Select,
-  Radio,
   Textarea,
   Typography,
 } from "@material-tailwind/react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-function Entry() {
+function Reply() {
   const [input, setInput] = useState({
-    title: "",
+    subject: "",
     message: "",
-    visibility: "only me",
   });
+
   const navigate = useNavigate();
-  const userId = useSelector(state => state.auth.userInfo._id);
+  const { _id: userId, username } = useSelector(state => state.auth.userInfo);
 
   const handleOnChange = e => {
     const name = e.target.name;
@@ -30,9 +27,16 @@ function Entry() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log("this is input inside of Entry.jsx:", input);
+
+    console.log("this is input inside of Help.jsx:", input);
     try {
-      await axios.post("/api/journal", { ...input, userId });
+      await axios.post("/api/dm", {
+        ...input,
+        to: "64ee2e434a748f8e53b07c50",
+        from: userId,
+        fromUsername: username,
+        username,
+      });
       navigate("/journal");
     } catch (err) {
       console.log(err);
@@ -47,43 +51,27 @@ function Entry() {
         shadow={false}
       >
         <Typography variant="h4" color="blue-gray">
-          Add New Entry
+          Report Bugs or Request Help
         </Typography>
 
         <form className="flex flex-col items-center mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
           <div className="mb-4 w-5/6 flex flex-col gap-6">
             <Input
               size="lg"
-              label="Title"
-              name="title"
-              value={input.title}
+              label="Subject"
+              name="subject"
+              value={input.subject}
               onChange={handleOnChange}
             />
 
             <Textarea
-              className="h-56"
+              className="h-48"
               size="lg"
               label="Message"
               name="message"
               value={input.message}
               onChange={handleOnChange}
             />
-            <label className="text-sm pl-2">Who can view this?</label>
-            <div className="gap-2 -mt-6">
-              <Radio
-                name="visibility"
-                label="Only Me"
-                value="only me"
-                onChange={handleOnChange}
-                defaultChecked
-              />
-              <Radio
-                name="visibility"
-                label="Friends"
-                value="friends"
-                onChange={handleOnChange}
-              />
-            </div>
           </div>
           <Button className="mt-6 mb-2 flex" onClick={handleSubmit}>
             Submit
@@ -94,4 +82,4 @@ function Entry() {
   );
 }
 
-export default Entry;
+export default Reply;
