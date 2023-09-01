@@ -8,16 +8,22 @@ function InboxList({ messages }) {
 
   return (
     <>
-      <table className="table-auto w-full">
+      <div className="flex gap-5 font-bold underline">
+        <h2 className="w-28">From</h2>
+        <h2 className="w-60">Subject</h2>
+        <h2 >Date</h2>
+      </div>
+      {renderInbox}
+      {/* <table className="table-auto w-full">
         <thead>
-          <tr>
+          <tr >
             <th>From</th>
             <th>Subject</th>
             <th>Date</th>
           </tr>
         </thead>
         {renderInbox}
-      </table>
+      </table> */}
     </>
   );
 }

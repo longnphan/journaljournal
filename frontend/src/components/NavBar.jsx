@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../store/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Navbar,
   Collapse,
@@ -21,6 +21,7 @@ import {
   Cog6ToothIcon,
   InboxArrowDownIcon,
   LifebuoyIcon,
+  PencilIcon,
   PencilSquareIcon,
   PowerIcon,
   Bars3Icon,
@@ -31,12 +32,13 @@ function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const username = useSelector(state => state.auth.userInfo?.username);
 
   const closeMenu = () => setIsMenuOpen(false);
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate("/journal");
+    navigate("/");
   };
 
   return (
@@ -48,6 +50,7 @@ function ProfileMenu() {
           className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
         >
           <UserCircleIcon className="h-6 w-6" />
+          {username && <p>{username}</p>}
           <ChevronDownIcon
             strokeWidth={2.5}
             className={`h-3 w-3 transition-transform ${
@@ -142,9 +145,19 @@ function NavList() {
       <Typography variant="small" color="blue-gray" className="font-normal">
         <MenuItem
           className="flex items-center gap-2 lg:rounded-full"
+          onClick={() => navigate("./journal/entry")}
+        >
+          <PencilIcon className="h-[18px] w-[18px]" />
+          Create Entry
+        </MenuItem>
+      </Typography>
+
+      <Typography variant="small" color="blue-gray" className="font-normal">
+        <MenuItem
+          className="flex items-center gap-2 lg:rounded-full"
           onClick={() => navigate("./journal")}
         >
-          <CalendarDaysIcon className="h-[18px] w-[18px]" />
+          <BookOpenIcon className="h-[18px] w-[18px]" />
           Entries
         </MenuItem>
       </Typography>
@@ -154,7 +167,7 @@ function NavList() {
           className="flex items-center gap-2 lg:rounded-full"
           onClick={() => navigate("./calendar")}
         >
-          <BookOpenIcon className="h-[18px] w-[18px]" />
+          <CalendarDaysIcon className="h-[18px] w-[18px]" />
           Calendar
         </MenuItem>
       </Typography>

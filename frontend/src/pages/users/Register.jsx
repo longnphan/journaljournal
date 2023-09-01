@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Register() {
@@ -10,6 +10,8 @@ function Register() {
     password: "",
     pwConfirm: "",
   });
+
+  const navigate = useNavigate();
 
   const handleOnChange = e => {
     const name = e.target.name;
@@ -21,8 +23,9 @@ function Register() {
     e.preventDefault();
     if (input.password !== input.pwConfirm) alert("passwords don't match");
 
-    const authRes = await axios.post("/api/user/auth", input);
-    const token = authRes.data.token;
+    const authRes = await axios.post("/api/user", input);
+    navigate("/journal");
+    // const token = authRes.data.token;
   };
 
   return (
