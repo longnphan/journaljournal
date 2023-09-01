@@ -19,7 +19,7 @@ function InboxItem({ message }) {
   return (
     <>
       <div
-        className={`flex hover:bg-gray-300 gap-5 border-b ${
+        className={`flex hover:bg-gray-300 gap-5 border-b cursor-pointer ${
           !read ? "font-bold" : ""
         }`}
         onClick={handleClick}
