@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../store/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Navbar,
   Collapse,
@@ -32,12 +32,13 @@ function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const username = useSelector(state => state.auth.userInfo?.username);
 
   const closeMenu = () => setIsMenuOpen(false);
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate("/journal");
+    navigate("/");
   };
 
   return (
@@ -49,6 +50,7 @@ function ProfileMenu() {
           className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
         >
           <UserCircleIcon className="h-6 w-6" />
+          {username && <p>{username}</p>}
           <ChevronDownIcon
             strokeWidth={2.5}
             className={`h-3 w-3 transition-transform ${

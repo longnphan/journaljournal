@@ -7,26 +7,6 @@ const getUsers = asyncHandler(async (req, res) => {
   res.json(users);
 });
 
-const authUser = asyncHandler(async (req, res) => {
-  const { username, password } = req.body;
-  console.log("req body is:", req.body);
-  const user = await User.findOne({ username });
-
-  if (user && (await user.matchPassword(password))) {
-    generateToken(res, user._id);
-
-    res.json({
-      _id: user._id,
-      username: user.username,
-      email: user.email,
-      isAdmin: user.isAdmin,
-    });
-  } else {
-    res.status(401);
-    throw new Error("Invalid email or password");
-  }
-});
-
 const registerUser = asyncHandler(async (req, res) => {
   const { username, email, password, isAdmin } = req.body;
 
@@ -56,6 +36,26 @@ const registerUser = asyncHandler(async (req, res) => {
   } else {
     res.status(400);
     throw new Error("Invalid user data");
+  }
+});
+
+const authUser = asyncHandler(async (req, res) => {
+  const { username, password } = req.body;
+  console.log("req body is:", req.body);
+  const user = await User.findOne({ username });
+
+  if (user && (await user.matchPassword(password))) {
+    generateToken(res, user._id);
+
+    res.json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
+  } else {
+    res.status(401);
+    throw new Error("Invalid email or password");
   }
 });
 

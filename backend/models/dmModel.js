@@ -6,6 +6,10 @@ const dmSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    fromUsername: {
+      type: String,
+      required: true,
+    },
     to: {
       type: String,
       required: true,

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
@@ -6,12 +8,16 @@ import {
   Textarea,
   Typography,
 } from "@material-tailwind/react";
+import axios from "axios";
 
 function Help() {
   const [input, setInput] = useState({
-    title: "",
+    subject: "",
     message: "",
   });
+
+  const navigate = useNavigate();
+  const { _id: userId, username } = useSelector(state => state.auth.userInfo);
 
   const handleOnChange = e => {
     const name = e.target.name;
@@ -19,8 +25,22 @@ function Help() {
     setInput(prev => ({ ...prev, [name]: input }));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
+
+    console.log("this is input inside of Help.jsx:", input);
+    try {
+      await axios.post("/api/dm", {
+        ...input,
+        to: "64ee2e434a748f8e53b07c50",
+        from: userId,
+        fromUsername: username,
+        username,
+      });
+      navigate("/journal");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -38,13 +58,14 @@ function Help() {
           <div className="mb-4 w-5/6 flex flex-col gap-6">
             <Input
               size="lg"
-              label="Title"
-              name="title"
-              value={input.title}
+              label="Subject"
+              name="subject"
+              value={input.subject}
               onChange={handleOnChange}
             />
 
             <Textarea
+              className="h-48"
               size="lg"
               label="Message"
               name="message"

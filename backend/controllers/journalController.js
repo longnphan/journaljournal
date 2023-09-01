@@ -15,10 +15,10 @@ const createJournal = asyncHandler(async (req, res) => {
 
 const getJournal = asyncHandler(async (req, res) => {
   token = req.cookies.jwt;
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  console.log("this is decoded in journalController", decoded.userId);
+  const { userId } = jwt.verify(token, process.env.JWT_SECRET);
+  console.log("this is decoded in journalController", userId);
 
-  const entries = await Journal.find({ user: decoded.userId});
+  const entries = await Journal.find({ user: userId });
 
   console.log("this is entries in journalController", entries);
 

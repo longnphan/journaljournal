@@ -1,17 +1,18 @@
-import React from "react";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 function InboxItem({ message }) {
-  const { createdAt, from, subject } = message;
+  const { createdAt, fromUsername, subject } = message;
 
   return (
     <>
-      <tbody>
-        <tr className="cursor-pointer" onClick={() => console.log("clicked")}>
-          <td>{from}</td>
-          <td>{subject}</td>
-          <td>{createdAt.slice(0, 10)}</td>
-        </tr>
-      </tbody>
+      <div className="flex hover:bg-gray-300 gap-5">
+        <h2 className="w-28">{fromUsername}</h2>
+        <h2 className="w-60">{subject}</h2>
+        <h2>{createdAt.slice(0, 10)}</h2>
+      </div>
+      {/* <div>
+      <TrashIcon className="h-6 w-6" strokeWidth="2" />
+      </div> */}
     </>
   );
 }

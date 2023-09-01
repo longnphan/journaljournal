@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const Dm = require("../models/dmModel");
 const asyncHandler = require("../middleware/asyncHandler");
 
@@ -14,8 +15,11 @@ const createDm = asyncHandler(async (req, res) => {
 });
 
 const getDm = asyncHandler(async (req, res) => {
+  const token = req.cookies.jwt;
+  const {userId} = jwt.verify(token, process.env.JWT_SECRET);
 
-  const messages = await Dm.find({});
+  const messages = await Dm.find({to: userId});
+  console.log("this is messages inside dmController:", messages)
 
   if (messages) {
     res.status(200).json(messages);

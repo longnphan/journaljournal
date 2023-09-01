@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { Card, CardBody, Typography, Button } from "@material-tailwind/react";
+import JournalList from "../components/JournalList";
 
 function Journal() {
   const [journalList, setJournalList] = useState([]);
@@ -30,6 +31,7 @@ function Journal() {
           <Typography variant="h5" color="blue-gray" className="mb-2">
             Journal
           </Typography>
+
         </CardBody>
       </Card>
     </>
