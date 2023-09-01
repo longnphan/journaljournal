@@ -65,7 +65,7 @@ function Help() {
             />
 
             <Textarea
-              className="h-48"
+              className="h-52"
               size="lg"
               label="Message"
               name="message"

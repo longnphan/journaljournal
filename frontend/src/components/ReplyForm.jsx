@@ -1,22 +1,26 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Button,
   Card,
+  CardFooter,
   Input,
   Textarea,
   Typography,
 } from "@material-tailwind/react";
 import axios from "axios";
 
-function Reply() {
+function ReplyForm({ isReply, messageItem }) {
+  const { from, fromUsername, message, subject, to } = messageItem;
+
   const [input, setInput] = useState({
-    subject: "",
+    subject: `RE: ${subject}`,
     message: "",
   });
 
   const navigate = useNavigate();
+  const { id } = useParams();
   const { _id: userId, username } = useSelector(state => state.auth.userInfo);
 
   const handleOnChange = e => {
@@ -28,30 +32,28 @@ function Reply() {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    console.log("this is input inside of Help.jsx:", input);
     try {
       await axios.post("/api/dm", {
         ...input,
-        to: "64ee2e434a748f8e53b07c50",
-        from: userId,
+        to: from,
+        from: to,
         fromUsername: username,
-        username,
       });
-      navigate("/journal");
+      navigate("/inbox");
     } catch (err) {
       console.log(err);
     }
   };
 
   return (
-    <Card className="mt-6 my-8 w-96 mx-auto">
+    <Card className="mt-6 my-8 w-1/2 mx-auto">
       <Card
         className="flex flex-col items-center"
         color="transparent"
         shadow={false}
       >
         <Typography variant="h4" color="blue-gray">
-          Report Bugs or Request Help
+          Reply to DM
         </Typography>
 
         <form className="flex flex-col items-center mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
@@ -65,7 +67,7 @@ function Reply() {
             />
 
             <Textarea
-              className="h-48"
+              className="h-52"
               size="lg"
               label="Message"
               name="message"
@@ -73,13 +75,24 @@ function Reply() {
               onChange={handleOnChange}
             />
           </div>
-          <Button className="mt-6 mb-2 flex" onClick={handleSubmit}>
-            Submit
-          </Button>
+          <CardFooter className="flex gap-2 pt-0 mx-auto">
+            <Button
+              className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+              onClick={handleSubmit}
+            >
+              Reply
+            </Button>
+            <Button
+              className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+              onClick={() => isReply()}
+            >
+              Cancel
+            </Button>
+          </CardFooter>
         </form>
       </Card>
     </Card>
   );
 }
 
-export default Reply;
+export default ReplyForm;

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeftCircleIcon } from "@heroicons/react/24/outline";
+import ReplyForm from "../../components/ReplyForm";
 import {
   Card,
   CardBody,
@@ -12,6 +13,7 @@ import axios from "axios";
 
 function ShowDM() {
   const [messageItem, setMessageItem] = useState({});
+  const [reply, setReply] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -33,6 +35,10 @@ function ShowDM() {
     }
   };
 
+  const isReply = () => {
+    setReply(false)
+  }
+
   useEffect(() => {
     getMessage();
   }, []);
@@ -44,7 +50,6 @@ function ShowDM() {
           className="h-6 w-6 ml-1 mt-1 cursor-pointer"
           onClick={() => navigate("/inbox")}
         />
-
         <CardBody>
           <Typography variant="h6" color="blue-gray" className="mb-1">
             From: {messageItem.fromUsername}
@@ -52,12 +57,14 @@ function ShowDM() {
           <Typography variant="h6" color="blue-gray" className="mb-4">
             Subject: {messageItem.subject}
           </Typography>
-          <p className="mb-2">
-            {messageItem.message}
-          </p>
+          <p className="mb-2">{messageItem.message}</p>
         </CardBody>
+        {!reply &&
         <CardFooter className="flex gap-2 pt-0 mx-auto">
-          <Button className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100">
+          <Button
+            className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+            onClick={() => setReply(true)}
+          >
             Reply
           </Button>
           <Button
@@ -67,7 +74,13 @@ function ShowDM() {
             Delete
           </Button>
         </CardFooter>
+        }
       </Card>
+
+    {reply &&
+    <ReplyForm isReply={isReply} messageItem={messageItem} />
+    }
+
     </>
   );
 }
