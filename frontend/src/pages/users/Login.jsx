@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { setUser } from "../../../store/authSlice";
 import { useDispatch } from "react-redux";
@@ -66,6 +66,19 @@ function Login() {
           <Button className="mt-6 mb-2 flex" onClick={handleSubmit}>
             Sign In
           </Button>
+
+          <Typography
+            color="gray"
+            className="mt-4 mb-2 text-center font-normal"
+          >
+            Are you a new user?{" "}
+            <Link
+              to={"/register"}
+              className="font-medium text-blue-500 transition-colors hover:text-blue-700"
+            >
+              Create an account
+            </Link>
+          </Typography>
         </form>
       </Card>
     </Card>
