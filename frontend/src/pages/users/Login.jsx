@@ -71,7 +71,7 @@ function Login() {
             color="gray"
             className="mt-4 mb-2 text-center font-normal"
           >
-            Are you a new user?{" "}
+            New user?{" "}
             <Link
               to={"/register"}
               className="font-medium text-blue-500 transition-colors hover:text-blue-700"

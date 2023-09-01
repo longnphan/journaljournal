@@ -69,7 +69,7 @@ function Entry() {
               onChange={handleOnChange}
             />
             <label className="text-sm pl-2">Who can view this?</label>
-            <div className="gap-3 -mt-6">
+            <div className="gap-2 -mt-6">
               <Radio
                 name="visibility"
                 label="Only Me"
@@ -81,12 +81,6 @@ function Entry() {
                 name="visibility"
                 label="Friends"
                 value="friends"
-                onChange={handleOnChange}
-              />
-              <Radio
-                name="visibility"
-                label="Public"
-                value="public"
                 onChange={handleOnChange}
               />
             </div>
