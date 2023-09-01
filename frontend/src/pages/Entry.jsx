@@ -1,17 +1,26 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
 import {
   Button,
   Card,
   Input,
+  Option,
+  Select,
+  Radio,
   Textarea,
   Typography,
 } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
 
 function Entry() {
   const [input, setInput] = useState({
     title: "",
     message: "",
+    visibility: "only me",
   });
+  const navigate = useNavigate();
+  const userId = useSelector(state => state.auth.userInfo._id);
 
   const handleOnChange = e => {
     const name = e.target.name;
@@ -19,8 +28,15 @@ function Entry() {
     setInput(prev => ({ ...prev, [name]: input }));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
+    console.log("this is input inside of Entry.jsx:", input);
+    try {
+      await axios.post("/api/journal", { ...input, userId });
+      navigate("/journal");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -45,12 +61,35 @@ function Entry() {
             />
 
             <Textarea
+              className="h-56"
               size="lg"
               label="Message"
               name="message"
               value={input.message}
               onChange={handleOnChange}
             />
+            <label className="text-sm pl-2">Who can view this?</label>
+            <div className="gap-3 -mt-6">
+              <Radio
+                name="visibility"
+                label="Only Me"
+                value="only me"
+                onChange={handleOnChange}
+                defaultChecked
+              />
+              <Radio
+                name="visibility"
+                label="Friends"
+                value="friends"
+                onChange={handleOnChange}
+              />
+              <Radio
+                name="visibility"
+                label="Public"
+                value="public"
+                onChange={handleOnChange}
+              />
+            </div>
           </div>
           <Button className="mt-6 mb-2 flex" onClick={handleSubmit}>
             Submit

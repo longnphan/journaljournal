@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const Journal = require("../models/journalModel");
 const asyncHandler = require("../middleware/asyncHandler");
 
@@ -13,7 +14,13 @@ const createJournal = asyncHandler(async (req, res) => {
 });
 
 const getJournal = asyncHandler(async (req, res) => {
-  const entries = await Journal.find({});
+  token = req.cookies.jwt;
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  console.log("this is decoded in journalController", decoded.userId);
+
+  const entries = await Journal.find({ user: decoded.userId});
+
+  console.log("this is entries in journalController", entries);
 
   if (entries) {
     res.status(200).json(entries);

@@ -21,6 +21,7 @@ import {
   Cog6ToothIcon,
   InboxArrowDownIcon,
   LifebuoyIcon,
+  PencilIcon,
   PencilSquareIcon,
   PowerIcon,
   Bars3Icon,
@@ -142,9 +143,19 @@ function NavList() {
       <Typography variant="small" color="blue-gray" className="font-normal">
         <MenuItem
           className="flex items-center gap-2 lg:rounded-full"
+          onClick={() => navigate("./journal/entry")}
+        >
+          <PencilIcon className="h-[18px] w-[18px]" />
+          Create Entry
+        </MenuItem>
+      </Typography>
+
+      <Typography variant="small" color="blue-gray" className="font-normal">
+        <MenuItem
+          className="flex items-center gap-2 lg:rounded-full"
           onClick={() => navigate("./journal")}
         >
-          <CalendarDaysIcon className="h-[18px] w-[18px]" />
+          <BookOpenIcon className="h-[18px] w-[18px]" />
           Entries
         </MenuItem>
       </Typography>
@@ -154,7 +165,7 @@ function NavList() {
           className="flex items-center gap-2 lg:rounded-full"
           onClick={() => navigate("./calendar")}
         >
-          <BookOpenIcon className="h-[18px] w-[18px]" />
+          <CalendarDaysIcon className="h-[18px] w-[18px]" />
           Calendar
         </MenuItem>
       </Typography>
