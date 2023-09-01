@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import InboxList from "../components/InboxList";
+import InboxList from "../../components/InboxList";
 import axios from "axios";
 import {
   Card,
@@ -15,7 +15,6 @@ function Inbox() {
   const getMessages = async () => {
     try {
       const messages = await axios.get("/api/dm");
-      console.log("this is messages inside Inbox.jsx:", messages);
       setMessageList(messages.data);
     } catch (err) {
       console.log(err);
