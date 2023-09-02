@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { ArrowLeftCircleIcon } from "@heroicons/react/24/outline";
 import {
   Button,
   Card,
@@ -52,6 +53,10 @@ function Edit() {
 
   return (
     <Card className="mt-6 my-8 w-96 mx-auto">
+      <ArrowLeftCircleIcon
+        className="h-6 w-6 ml-1 mt-1 cursor-pointer"
+        onClick={() => navigate("/journal")}
+      />
       <Card
         className="flex flex-col items-center"
         color="transparent"
@@ -101,13 +106,13 @@ function Edit() {
 
           <CardFooter className="flex gap-2 pt-0 mx-auto">
             <Button
-              className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+              className="bg-black text-white hover:scale-105"
               onClick={handleSubmit}
             >
               Submit
             </Button>
             <Button
-              className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+              className="bg-black text-white hover:scale-105"
               onClick={() => handleDelete()}
             >
               Delete

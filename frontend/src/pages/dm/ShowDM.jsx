@@ -62,13 +62,13 @@ function ShowDM() {
         {!reply &&
         <CardFooter className="flex gap-2 pt-0 mx-auto">
           <Button
-            className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+            className="bg-black text-white hover:scale-105"
             onClick={() => setReply(true)}
           >
             Reply
           </Button>
           <Button
-            className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+            className="bg-black text-white hover:scale-105"
             onClick={() => deleteMessage()}
           >
             Delete
