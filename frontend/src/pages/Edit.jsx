@@ -1,20 +1,36 @@
 import { useState } from "react";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
+  CardFooter,
   Input,
+  Radio,
   Textarea,
   Typography,
 } from "@material-tailwind/react";
-import { useParams } from "react-router-dom";
+import axios from "axios";
 
 function Edit() {
+  const location = useLocation();
+  const { title, message, userId } = location.state;
   const [input, setInput] = useState({
-    title: "",
-    message: "",
+    title,
+    message,
+    visibility: "only me",
   });
 
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/api/journal/${id}`);
+      navigate("/journal");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleOnChange = e => {
     const name = e.target.name;
@@ -22,8 +38,16 @@ function Edit() {
     setInput(prev => ({ ...prev, [name]: input }));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
+
+    console.log("this is input inside of Edit.jsx:", input);
+    try {
+      await axios.put(`/api/journal/${id}`, { ...input, userId });
+      navigate("/journal");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -37,7 +61,7 @@ function Edit() {
           Edit Entry
         </Typography>
 
-        <form className="flex flex-col items-center mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+        <form className="flex flex-col items-center mt-8 mb-2 w-96 max-w-screen-lg sm:w-96">
           <div className="mb-4 w-5/6 flex flex-col gap-6">
             <Input
               size="lg"
@@ -49,15 +73,45 @@ function Edit() {
 
             <Textarea
               size="lg"
+              className="h-48"
               label="Message"
               name="message"
               value={input.message}
               onChange={handleOnChange}
             />
+
+            <label className="text-sm pl-2">Who can view this?</label>
+            <div className="gap-2 -mt-6">
+              <Radio
+                name="visibility"
+                label="Only Me"
+                value="only me"
+                onChange={handleOnChange}
+                defaultChecked
+              />
+              <Radio
+                name="visibility"
+                label="Friends"
+                value="friends"
+                onChange={handleOnChange}
+              />
+            </div>
           </div>
-          <Button className="mt-6 mb-2 flex" onClick={handleSubmit}>
-            Submit
-          </Button>
+
+          <CardFooter className="flex gap-2 pt-0 mx-auto">
+            <Button
+              className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+              onClick={handleSubmit}
+            >
+              Submit
+            </Button>
+            <Button
+              className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+              onClick={() => handleDelete()}
+            >
+              Delete
+            </Button>
+          </CardFooter>
         </form>
       </Card>
     </Card>

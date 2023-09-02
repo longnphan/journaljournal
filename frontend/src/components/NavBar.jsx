@@ -240,15 +240,17 @@ export function NavBar() {
           <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
             <NavList />
           </div>
-          <IconButton
-            size="sm"
-            color="blue-gray"
-            variant="text"
-            onClick={toggleIsNavOpen}
-            className="ml-auto mr-2 lg:hidden"
-          >
-            <Bars3Icon className="h-6 w-6" />
-          </IconButton>
+          {username && (
+            <IconButton
+              size="sm"
+              color="blue-gray"
+              variant="text"
+              onClick={toggleIsNavOpen}
+              className="ml-auto mr-2 lg:hidden"
+            >
+              <Bars3Icon className="h-6 w-6" />
+            </IconButton>
+          )}
           <ProfileMenu />
         </div>
         <Collapse open={isNavOpen} className="overflow-scroll">

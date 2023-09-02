@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { Navigate, Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Calendar from "./pages/Calendar";
 import Edit from "./pages/Edit";
 import Entry from "./pages/Entry";
@@ -13,23 +14,30 @@ import Update from "./pages/users/Update";
 import { NavBar } from "./components/NavBar";
 
 function App() {
+  const username = useSelector(state => state.auth.userInfo?.username);
+
   return (
     <>
       <NavBar />
       <Routes>
-        {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/" element={<Login />} />
-        <Route path="/help" element={<Help />} />
-        <Route path="/calendar" element={<Calendar />} />
-        <Route path="/friends" element={<Friends />} />
-        <Route path="/journal" element={<Journal />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/update" element={<Update />} />
-        <Route path="/journal/entry" element={<Entry />} />
-        <Route path="/inbox" element={<Inbox />} />
-        <Route path="/inbox/:id" element={<ShowDM />} />
-        <Route path="/journal" element={<Journal />} />
-        <Route path="/journal/:id" element={<Edit />} />
+        {!username ? (
+          <Route path="*" element={<Navigate to="/" />} />
+        ) : (
+          <>
+            <Route path="/help" element={<Help />} />
+            <Route path="/calendar" element={<Calendar />} />
+            <Route path="/friends" element={<Friends />} />
+            <Route path="/journal" element={<Journal />} />
+            <Route path="/update" element={<Update />} />
+            <Route path="/journal/entry" element={<Entry />} />
+            <Route path="/inbox" element={<Inbox />} />
+            <Route path="/journal" element={<Journal />} />
+            <Route path="/inbox/:id" element={<ShowDM />} />
+            <Route path="/journal/:id" element={<Edit />} />
+          </>
+        )}
       </Routes>
     </>
   );
