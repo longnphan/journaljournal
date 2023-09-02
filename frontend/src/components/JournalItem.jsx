@@ -1,22 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import { Card, CardBody, Typography, Button } from "@material-tailwind/react";
-import axios from "axios";
 
 function JournalItem({ entry }) {
-  const { _id, createdAt, title, message, userId } = entry;
+  const { _id, createdAt, title, message, userId, visibility } = entry;
   const navigate = useNavigate();
 
   const handleClick = async () => {
-    navigate(`/journal/${_id}`, { state: { title, message, userId } });
+    navigate(`/journal/${_id}`, {
+      state: { title, message, userId, visibility },
+    });
   };
 
   return (
     <>
       <Card
-        className="mt-6 w-9/10 mx-auto cursor-pointer hover:scale-105 hover:bg-gray-100"
+        className="mt-6 w-9/10 mx-auto cursor-pointer hover:scale-105 hover:bg-gray-300"
         onClick={handleClick}
       >
-        <div className="flex justify-between p-2 bg-gray-900 rounded-t-lg">
+        <div className="flex justify-between p-2 bg-gray-700 rounded-t-xl">
           <Typography variant="h6" color="white" className="mb-2">
             {title}
           </Typography>

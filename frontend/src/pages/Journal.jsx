@@ -23,16 +23,12 @@ function Journal() {
   }, []);
 
   return (
-    <>
-      <Card className="mt-6 w-1/2 mx-auto">
-        <CardBody>
-          <Typography variant="h5" color="blue-gray" className="mb-2">
-            Journal
-          </Typography>
-          {<JournalList entries={journalList} />}
-        </CardBody>
-      </Card>
-    </>
+    <div className="w-2/5 mx-auto">
+      <Typography variant="h5" color="blue-gray" className="mb-2 mt-6">
+        Journal
+      </Typography>
+      {<JournalList entries={journalList} />}
+    </div>
   );
 }
 
