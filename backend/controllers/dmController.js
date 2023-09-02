@@ -61,10 +61,8 @@ const updateDm = asyncHandler(async (req, res) => {
 const getDm = asyncHandler(async (req, res) => {
   const token = req.cookies.jwt;
   const { userId } = jwt.verify(token, process.env.JWT_SECRET);
-  console.log("req inside getDM in dmController:", req.params);
 
   const message = await Dm.find({ _id: req.params.id });
-  console.log("this is messages inside dmController:", message);
 
   if (message) {
     res.status(200).json(message);

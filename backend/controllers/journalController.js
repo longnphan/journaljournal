@@ -6,11 +6,8 @@ const asyncHandler = require("../middleware/asyncHandler");
 const getJournal = asyncHandler(async (req, res) => {
   token = req.cookies.jwt;
   const { userId } = jwt.verify(token, process.env.JWT_SECRET);
-  console.log("this is decoded in journalController", userId);
 
   const entries = await Journal.find({ userId });
-
-  console.log("this is entries in journalController", entries);
 
   if (entries) {
     res.status(200).json(entries);
@@ -34,12 +31,6 @@ const deleteJournal = asyncHandler(async (req, res) => {
 
 // Update Journal entry by ID
 const updateJournal = asyncHandler(async (req, res) => {
-  console.log("INSIDE OF updateJournal in journalController!!!");
-
-  console.log(
-    "req body inside of updateJournal in journalController:",
-    req.body
-  );
   const entry = await Journal.findOneAndUpdate(
     { _id: req.params.id },
     req.body

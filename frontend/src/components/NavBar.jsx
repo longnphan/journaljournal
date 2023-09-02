@@ -35,8 +35,6 @@ function ProfileMenu() {
   const dispatch = useDispatch();
   const username = useSelector(state => state.auth.userInfo?.username);
 
-  const closeMenu = () => setIsMenuOpen(false);
-
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");

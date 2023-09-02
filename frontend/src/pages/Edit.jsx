@@ -13,11 +13,11 @@ import axios from "axios";
 
 function Edit() {
   const location = useLocation();
-  const { title, message, userId } = location.state;
+  const { title, message, userId, visibility } = location.state;
   const [input, setInput] = useState({
     title,
     message,
-    visibility: "only me",
+    visibility,
   });
 
   const { id } = useParams();
@@ -87,13 +87,14 @@ function Edit() {
                 label="Only Me"
                 value="only me"
                 onChange={handleOnChange}
-                defaultChecked
+                defaultChecked={visibility === "only me" ? true : false}
               />
               <Radio
                 name="visibility"
                 label="Friends"
                 value="friends"
                 onChange={handleOnChange}
+                defaultChecked={visibility === "friends" ? true : false}
               />
             </div>
           </div>

@@ -1,4 +1,3 @@
-import React from "react";
 import InboxItem from "./InboxItem";
 
 function InboxList({ messages }) {
