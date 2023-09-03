@@ -22,6 +22,19 @@ const userSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    //   journalEntries: [
+    //     {
+    //       type: mongoose.Types.ObjectId,
+    //       ref: "Journals",
+    //     },
+    //   ],
+    //   friends: [
+    //     {
+    //       type: mongoose.Types.ObjectId,
+    //       ref: "Friends",
+    //     },
+    //   ],
+    // },
   },
   { timestamps: true }
 );
