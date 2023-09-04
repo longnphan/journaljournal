@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -24,8 +25,6 @@ function Friends() {
   const [friendsList, setFriendsList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
   const [size, setSize] = useState(null);
-
-  console.log("this is friends state in getFriends:", friendsList);
 
   const { _id: userId, username } = useSelector(state => state.auth.userInfo);
 
@@ -71,7 +70,6 @@ function Friends() {
   const getFriends = async () => {
     try {
       const friends = await axios.get("/api/friend");
-      console.log("this is friends in getFriends:", friends);
       setFriendsList(friends.data);
     } catch (err) {
       console.log(err);
@@ -102,18 +100,67 @@ function Friends() {
 
   return (
     <>
-      <Card className="mt-6 w-2/5 h-52 mx-auto">
+      <Card className="mt-6 w-2/5 min-h-[30%] mx-auto">
         <CardBody>
           <Typography variant="h5" color="blue-gray" className="mb-2">
             Friends
           </Typography>
 
-          {friendsList.filter(item =>item.isApproved === "true").map(item => item.username === username ?
-          <p key={item._id} className="text-xl">{item.friendName}</p> : 
-          <p key={item._id} className="text-xl">{item.username}</p>
-          )}
+          {friendsList
+            .filter(item => item.isApproved === "true")
+            .map(item =>
+              item.username === username ? (
+                <Link
+                  key={item._id}
+                  to={`/friends/${item.friendId}`}
+                  state={{ friendName: item.friendName }}
+                >
+                  <p className="text-xl text-blue-700">{item.friendName}</p>
+                </Link>
+              ) : (
+                <Link
+                  key={item._id}
+                  to={`/friends/${item.userId}`}
+                  state={{ friendName: item.username }}
+                >
+                  <p className="text-xl text-blue-700">{item.username}</p>
+                </Link>
+              )
+            )}
+        </CardBody>
+      </Card>
 
+      <div>
+        <Dialog
+          open={size === "xs" || size === "sm"}
+          size={size || "sm"}
+          handler={handleOpen}
+        >
+          <DialogHeader>Friend Request Pending...</DialogHeader>
+          <DialogBody divider>
+            {`A friend request has been sent to ${input.friendName}`}
+          </DialogBody>
+          <DialogFooter>
+            <Button
+              variant="gradient"
+              color="blue-gray"
+              onClick={handleConfirm}
+            >
+              <span>Confirm</span>
+            </Button>
+          </DialogFooter>
+        </Dialog>
+      </div>
 
+      <Card className="mt-6 w-2/5 min-h-[10%] mx-auto">
+        <CardBody>{<FriendList friends={friendsList} />}</CardBody>
+      </Card>
+
+      <Card className="mt-6 w-2/5 min-h-[30%] mx-auto">
+        <CardBody>
+          <Typography variant="h5" color="blue-gray" className="mb-2">
+            Add Friends
+          </Typography>
 
           <div className="relative mt-3 flex w-full max-w-[24rem]">
             <Input
@@ -148,34 +195,6 @@ function Friends() {
           </div>
         </CardBody>
       </Card>
-
-      <div>
-        <Dialog
-          open={size === "xs" || size === "sm"}
-          size={size || "sm"}
-          handler={handleOpen}
-        >
-          <DialogHeader>Friend Request Pending...</DialogHeader>
-          <DialogBody divider>
-            {`A friend request has been sent to ${input.friendName}`}
-          </DialogBody>
-          <DialogFooter>
-            <Button
-              variant="gradient"
-              color="blue-gray"
-              onClick={handleConfirm}
-            >
-              <span>Confirm</span>
-            </Button>
-          </DialogFooter>
-        </Dialog>
-      </div>
-
-      <Card className="mt-6 w-2/5 h-52 mx-auto">
-        <CardBody>
-        {<FriendList friends={friendsList} />}
-        </CardBody>
-        </Card>
     </>
   );
 }

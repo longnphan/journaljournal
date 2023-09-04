@@ -16,7 +16,6 @@ import {
 import {
   UserCircleIcon,
   BookOpenIcon,
-  CalendarDaysIcon,
   ChevronDownIcon,
   Cog6ToothIcon,
   InboxArrowDownIcon,
@@ -107,20 +106,6 @@ function ProfileMenu() {
               </Typography>
             </MenuItem>
             <MenuItem
-              onClick={() => navigate("./inbox")}
-              className="flex items-center gap-2 rounded"
-            >
-              <InboxArrowDownIcon className="h-4 w-4" strokeWidth="2" />
-              <Typography
-                as="span"
-                variant="small"
-                className="font-normal"
-                color="inherit"
-              >
-                Inbox
-              </Typography>
-            </MenuItem>
-            <MenuItem
               onClick={() => navigate("./help")}
               className="flex items-center gap-2 rounded"
             >
@@ -187,20 +172,20 @@ function NavList() {
           <Typography variant="small" color="blue-gray" className="font-normal">
             <MenuItem
               className="flex items-center gap-2 lg:rounded-full"
-              onClick={() => navigate("./calendar")}
+              onClick={() => navigate("./friends")}
             >
-              <CalendarDaysIcon className="h-[18px] w-[18px]" />
-              Calendar
+              <UsersIcon className="h-[18px] w-[18px]" />
+              Friends
             </MenuItem>
           </Typography>
 
           <Typography variant="small" color="blue-gray" className="font-normal">
             <MenuItem
               className="flex items-center gap-2 lg:rounded-full"
-              onClick={() => navigate("./friends")}
+              onClick={() => navigate("./inbox")}
             >
-              <UsersIcon className="h-[18px] w-[18px]" />
-              Friends
+              <InboxArrowDownIcon className="h-[18px] w-[18px]" />
+              Inbox
             </MenuItem>
           </Typography>
         </ul>

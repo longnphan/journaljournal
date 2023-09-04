@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Card, CardBody, Typography, Button } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
 import JournalList from "../components/JournalList";
 
 function Journal() {
@@ -27,7 +27,8 @@ function Journal() {
       <Typography variant="h5" color="blue-gray" className="mb-2 mt-6">
         Journal
       </Typography>
-      {<JournalList entries={journalList} />}
+      {journalList.length === 0 && <h1>You have no journal entries.</h1>}
+      {<JournalList entries={journalList} editable />}
     </div>
   );
 }

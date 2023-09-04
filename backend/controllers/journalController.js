@@ -17,6 +17,18 @@ const getJournal = asyncHandler(async (req, res) => {
   }
 });
 
+// Get friend journal by friend ID
+const getJournalByID = asyncHandler(async (req, res) => {
+  const entries = await Journal.find({ userId: req.params.id });
+
+  if (entries) {
+    res.status(200).json(entries);
+  } else {
+    res.status(400);
+    throw new Error("Journal entries not found");
+  }
+});
+
 // Delete Journal entry by ID
 const deleteJournal = asyncHandler(async (req, res) => {
   const entry = await Journal.findOneAndDelete({ _id: req.params.id });
@@ -55,4 +67,10 @@ const createJournal = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { createJournal, getJournal, deleteJournal, updateJournal };
+module.exports = {
+  createJournal,
+  getJournal,
+  getJournalByID,
+  deleteJournal,
+  updateJournal,
+};

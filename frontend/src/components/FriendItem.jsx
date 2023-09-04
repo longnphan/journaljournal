@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -13,6 +14,7 @@ import axios from "axios";
 
 function FriendItem({ friend }) {
   const { _id, username } = friend;
+  const navigate = useNavigate();
 
   const handleApprove = async () => {
     console.log("inside of handleApprove in FriendItem");
@@ -21,6 +23,7 @@ function FriendItem({ friend }) {
         ...friend,
         isApproved: "true",
       });
+      navigate("/friends");
     } catch (err) {
       console.log(err);
     }
