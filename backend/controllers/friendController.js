@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const Friend = require("../models/friendlModel");
+const Friend = require("../models/friendModel");
 const asyncHandler = require("../middleware/asyncHandler");
 
 // Get all friends whether they are approved or not
@@ -48,7 +48,7 @@ const createFriend = asyncHandler(async (req, res) => {
   const friend = await Friend.create({ ...req.body });
 
   if (friend) {
-    res.status(201).json(entry);
+    res.status(201).json(friend);
   } else {
     res.status(400);
     throw new Error("Friend was not created");

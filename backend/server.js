@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use("/api/journal", journalRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/dm", dmRoutes);
-app.use("/api/friend", dmRoutes);
+app.use("/api/friend", friendRoutes);
 
 app.listen(PORT, () => {
   console.log("Listening to port:", PORT);
