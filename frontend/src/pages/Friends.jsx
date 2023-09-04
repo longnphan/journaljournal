@@ -11,6 +11,7 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import FriendList from "../components/FriendList";
 import axios from "axios";
 
 function Friends() {
@@ -20,23 +21,25 @@ function Friends() {
   });
 
   const [userList, setUserList] = useState([]);
-  const [friends, setFriends] = useState([]);
+  const [friendsList, setFriendsList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
   const [size, setSize] = useState(null);
+
+  console.log("this is friends state in getFriends:", friendsList);
 
   const { _id: userId, username } = useSelector(state => state.auth.userInfo);
 
   // Opens modal and adds friend
   const handleOpen = async value => {
-    if (input.friendName.trim().length > 0) {
+    if (input.friendName.trim()) {
       try {
-        console.log("this is input inside handleOpen:", input);
         await axios.post("/api/friend", {
           userId,
           username,
           friendName: input.friendName,
           friendId: input.friendId,
         });
+        setSize(value);
       } catch (err) {
         console.log(err);
       }
@@ -65,6 +68,16 @@ function Friends() {
     setFilteredList(newList);
   };
 
+  const getFriends = async () => {
+    try {
+      const friends = await axios.get("/api/friend");
+      console.log("this is friends in getFriends:", friends);
+      setFriendsList(friends.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const getUsers = async () => {
     try {
       const users = await axios.get("/api/user");
@@ -76,24 +89,31 @@ function Friends() {
 
   const handleFilter = friendInfo => {
     setInput({
-      friendName: friendInfo.username ,
+      friendName: friendInfo.username,
       friendId: friendInfo._id,
     });
     setFilteredList([]);
   };
 
-
   useEffect(() => {
     getUsers();
+    getFriends();
   }, []);
 
   return (
     <>
-      <Card className="mt-6 w-2/5 h-96 mx-auto">
+      <Card className="mt-6 w-2/5 h-52 mx-auto">
         <CardBody>
           <Typography variant="h5" color="blue-gray" className="mb-2">
             Friends
           </Typography>
+
+          {friendsList.filter(item =>item.isApproved === "true").map(item => item.username === username ?
+          <p key={item._id} className="text-xl">{item.friendName}</p> : 
+          <p key={item._id} className="text-xl">{item.username}</p>
+          )}
+
+
 
           <div className="relative mt-3 flex w-full max-w-[24rem]">
             <Input
@@ -137,7 +157,7 @@ function Friends() {
         >
           <DialogHeader>Friend Request Pending...</DialogHeader>
           <DialogBody divider>
-            `A friend request has been sent to ${input.friendName}`
+            {`A friend request has been sent to ${input.friendName}`}
           </DialogBody>
           <DialogFooter>
             <Button
@@ -150,6 +170,12 @@ function Friends() {
           </DialogFooter>
         </Dialog>
       </div>
+
+      <Card className="mt-6 w-2/5 h-52 mx-auto">
+        <CardBody>
+        {<FriendList friends={friendsList} />}
+        </CardBody>
+        </Card>
     </>
   );
 }
