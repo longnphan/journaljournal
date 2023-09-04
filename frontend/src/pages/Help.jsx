@@ -28,7 +28,6 @@ function Help() {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    console.log("this is input inside of Help.jsx:", input);
     try {
       await axios.post("/api/dm", {
         ...input,
