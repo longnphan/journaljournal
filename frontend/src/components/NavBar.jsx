@@ -81,20 +81,6 @@ function ProfileMenu() {
               onClick={() => alert("the click works")}
               className="flex items-center gap-2 rounded"
             >
-              <UserCircleIcon className="h-4 w-4" strokeWidth="2" />
-              <Typography
-                as="span"
-                variant="small"
-                className="font-normal"
-                color="inherit"
-              >
-                My Profile
-              </Typography>
-            </MenuItem>
-            <MenuItem
-              onClick={() => navigate("./update")}
-              className="flex items-center gap-2 rounded"
-            >
               <Cog6ToothIcon className="h-4 w-4" strokeWidth="2" />
               <Typography
                 as="span"
@@ -102,7 +88,7 @@ function ProfileMenu() {
                 className="font-normal"
                 color="inherit"
               >
-                Edit Profile
+                Profile
               </Typography>
             </MenuItem>
             <MenuItem

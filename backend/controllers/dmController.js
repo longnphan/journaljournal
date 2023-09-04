@@ -20,8 +20,7 @@ const getDms = asyncHandler(async (req, res) => {
   const { userId } = jwt.verify(token, process.env.JWT_SECRET);
 
   const messages = await Dm.find({ to: userId });
-  console.log("this is messages inside dmController:", messages);
-
+  
   if (messages) {
     res.status(200).json(messages);
   } else {

@@ -25,8 +25,6 @@ function Login() {
 
     try {
       const authRes = await axios.post("/api/user/auth", input);
-
-      console.log("This is authRes in Login.jsx:", authRes.data);
       dispatch(setUser(authRes.data));
       navigate("/journal");
     } catch (err) {
