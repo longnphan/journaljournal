@@ -19,8 +19,8 @@ const friendSchema = new mongoose.Schema(
       required: true,
     },
     isApproved: {
-      type: Boolean,
-      default: false,
+      type: String,
+      default: "false",
     },
   },
   { timestamps: true }

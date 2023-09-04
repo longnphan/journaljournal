@@ -7,7 +7,9 @@ const getFriends = asyncHandler(async (req, res) => {
   token = req.cookies.jwt;
   const { userId } = jwt.verify(token, process.env.JWT_SECRET);
 
-  const friends = await Friend.find({ userId });
+  const friends = await Friend.find({
+    $or: [{ userId }, { friendId: userId }],
+  });
 
   if (friends) {
     res.status(200).json(friends);
