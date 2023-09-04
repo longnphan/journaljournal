@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -24,8 +25,6 @@ function Friends() {
   const [friendsList, setFriendsList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
   const [size, setSize] = useState(null);
-
-  console.log("this is friends state in getFriends:", friendsList);
 
   const { _id: userId, username } = useSelector(state => state.auth.userInfo);
 
@@ -71,7 +70,6 @@ function Friends() {
   const getFriends = async () => {
     try {
       const friends = await axios.get("/api/friend");
-      console.log("this is friends in getFriends:", friends);
       setFriendsList(friends.data);
     } catch (err) {
       console.log(err);
@@ -112,13 +110,21 @@ function Friends() {
             .filter(item => item.isApproved === "true")
             .map(item =>
               item.username === username ? (
-                <p key={item._id} className="text-xl">
-                  {item.friendName}
-                </p>
+                <Link
+                  key={item._id}
+                  to={`/friends/${item.friendId}`}
+                  state={{ friendName: item.friendName }}
+                >
+                  <p className="text-xl text-blue-700">{item.friendName}</p>
+                </Link>
               ) : (
-                <p key={item._id} className="text-xl">
-                  {item.username}
-                </p>
+                <Link
+                  key={item._id}
+                  to={`/friends/${item.userId}`}
+                  state={{ friendName: item.username }}
+                >
+                  <p className="text-xl text-blue-700">{item.username}</p>
+                </Link>
               )
             )}
         </CardBody>

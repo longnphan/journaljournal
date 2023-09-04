@@ -1,6 +1,5 @@
 import { Navigate, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Calendar from "./pages/Calendar";
 import Edit from "./pages/Edit";
 import Entry from "./pages/Entry";
 import Friends from "./pages/Friends";
@@ -10,6 +9,7 @@ import Journal from "./pages/Journal";
 import Login from "./pages/users/Login";
 import Register from "./pages/users/Register";
 import ShowDM from "./pages/dm/ShowDM";
+import ShowFriends from "./pages/ShowFriends";
 import Update from "./pages/users/Update";
 import { NavBar } from "./components/NavBar";
 
@@ -27,7 +27,6 @@ function App() {
         ) : (
           <>
             <Route path="/help" element={<Help />} />
-            <Route path="/calendar" element={<Calendar />} />
             <Route path="/friends" element={<Friends />} />
             <Route path="/journal" element={<Journal />} />
             <Route path="/update" element={<Update />} />
@@ -36,6 +35,7 @@ function App() {
             <Route path="/journal" element={<Journal />} />
             <Route path="/inbox/:id" element={<ShowDM />} />
             <Route path="/journal/:id" element={<Edit />} />
+            <Route path="/friends/:id" element={<ShowFriends />} />
           </>
         )}
       </Routes>
