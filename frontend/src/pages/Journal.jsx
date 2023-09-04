@@ -27,6 +27,7 @@ function Journal() {
       <Typography variant="h5" color="blue-gray" className="mb-2 mt-6">
         Journal
       </Typography>
+      {journalList.length === 0 && <h1>You have no journal entries.</h1>}
       {<JournalList entries={journalList} />}
     </div>
   );

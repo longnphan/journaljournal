@@ -102,18 +102,59 @@ function Friends() {
 
   return (
     <>
-      <Card className="mt-6 w-2/5 h-52 mx-auto">
+      <Card className="mt-6 w-2/5 min-h-[30%] mx-auto">
         <CardBody>
           <Typography variant="h5" color="blue-gray" className="mb-2">
             Friends
           </Typography>
 
-          {friendsList.filter(item =>item.isApproved === "true").map(item => item.username === username ?
-          <p key={item._id} className="text-xl">{item.friendName}</p> : 
-          <p key={item._id} className="text-xl">{item.username}</p>
-          )}
+          {friendsList
+            .filter(item => item.isApproved === "true")
+            .map(item =>
+              item.username === username ? (
+                <p key={item._id} className="text-xl">
+                  {item.friendName}
+                </p>
+              ) : (
+                <p key={item._id} className="text-xl">
+                  {item.username}
+                </p>
+              )
+            )}
+        </CardBody>
+      </Card>
 
+      <div>
+        <Dialog
+          open={size === "xs" || size === "sm"}
+          size={size || "sm"}
+          handler={handleOpen}
+        >
+          <DialogHeader>Friend Request Pending...</DialogHeader>
+          <DialogBody divider>
+            {`A friend request has been sent to ${input.friendName}`}
+          </DialogBody>
+          <DialogFooter>
+            <Button
+              variant="gradient"
+              color="blue-gray"
+              onClick={handleConfirm}
+            >
+              <span>Confirm</span>
+            </Button>
+          </DialogFooter>
+        </Dialog>
+      </div>
 
+      <Card className="mt-6 w-2/5 min-h-[10%] mx-auto">
+        <CardBody>{<FriendList friends={friendsList} />}</CardBody>
+      </Card>
+
+      <Card className="mt-6 w-2/5 min-h-[30%] mx-auto">
+        <CardBody>
+          <Typography variant="h5" color="blue-gray" className="mb-2">
+            Add Friends
+          </Typography>
 
           <div className="relative mt-3 flex w-full max-w-[24rem]">
             <Input
@@ -148,34 +189,6 @@ function Friends() {
           </div>
         </CardBody>
       </Card>
-
-      <div>
-        <Dialog
-          open={size === "xs" || size === "sm"}
-          size={size || "sm"}
-          handler={handleOpen}
-        >
-          <DialogHeader>Friend Request Pending...</DialogHeader>
-          <DialogBody divider>
-            {`A friend request has been sent to ${input.friendName}`}
-          </DialogBody>
-          <DialogFooter>
-            <Button
-              variant="gradient"
-              color="blue-gray"
-              onClick={handleConfirm}
-            >
-              <span>Confirm</span>
-            </Button>
-          </DialogFooter>
-        </Dialog>
-      </div>
-
-      <Card className="mt-6 w-2/5 h-52 mx-auto">
-        <CardBody>
-        {<FriendList friends={friendsList} />}
-        </CardBody>
-        </Card>
     </>
   );
 }
