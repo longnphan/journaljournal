@@ -1,15 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import {
-  Card,
-  CardBody,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Input,
-  Typography,
-  Button,
-} from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import axios from "axios";
 
 function FriendItem({ friend }) {
@@ -17,25 +7,24 @@ function FriendItem({ friend }) {
   const navigate = useNavigate();
 
   const handleApprove = async () => {
-    console.log("inside of handleApprove in FriendItem");
     try {
       await axios.put(`/api/friend/${_id}`, {
         ...friend,
         isApproved: "true",
       });
-      navigate("/friends");
+      navigate("/inbox");
     } catch (err) {
       console.log(err);
     }
   };
 
   const handleDecline = async () => {
-    console.log("inside of handleDecline in FriendItem");
     try {
-      await axios.put("/api/friend", {
+      await axios.put(`/api/friend/${_id}`, {
         ...friend,
         isApproved: "declined",
       });
+      navigate("/inbox");
     } catch (err) {
       console.log(err);
     }
@@ -43,7 +32,7 @@ function FriendItem({ friend }) {
 
   return (
     <>
-      <div className="flex justify-between mt-2">
+      <div className="flex justify-between mt-2" key={crypto.randomUUID()}>
         <p className="ml-2 text-xl">{username}</p>
         <div className="gap-2">
           <Button

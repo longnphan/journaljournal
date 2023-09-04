@@ -100,6 +100,7 @@ function Friends() {
 
   return (
     <>
+      {/* Friends card */}
       <Card className="mt-6 w-2/5 min-h-[30%] mx-auto">
         <CardBody>
           <Typography variant="h5" color="blue-gray" className="mb-2">
@@ -130,6 +131,7 @@ function Friends() {
         </CardBody>
       </Card>
 
+      {/* Modal */}
       <div>
         <Dialog
           open={size === "xs" || size === "sm"}
@@ -152,6 +154,7 @@ function Friends() {
         </Dialog>
       </div>
 
+      {/* Add friends card */}
       <Card className="mt-6 w-2/5 min-h-[10%] mx-auto">
         <CardBody>{<FriendList friends={friendsList} />}</CardBody>
       </Card>
