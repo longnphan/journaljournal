@@ -15,6 +15,7 @@ import {
 import FriendList from "../components/FriendList";
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
+import baseURL from "../../api";
 
 function Friends() {
   const [input, setInput] = useState({
@@ -34,7 +35,7 @@ function Friends() {
   const handleOpen = async value => {
     if (input.friendName.trim()) {
       try {
-        await axios.post("/api/friend", {
+        await axios.post(baseURL + "/api/friend", {
           userId,
           username,
           friendName: input.friendName,
@@ -75,7 +76,7 @@ function Friends() {
 
   const getFriends = async () => {
     try {
-      const friends = await axios.get("/api/friend");
+      const friends = await axios.get(baseURL + "/api/friend");
       setFriendsList(friends.data);
     } catch (err) {
       console.log(err);
@@ -84,7 +85,7 @@ function Friends() {
 
   const getUsers = async () => {
     try {
-      const users = await axios.get("/api/user");
+      const users = await axios.get(baseURL + "/api/user");
       setUserList(users.data);
     } catch (err) {
       console.log(err);
@@ -103,6 +104,8 @@ function Friends() {
     getUsers();
     getFriends();
   }, []);
+
+  if (!friendsList) return <h1>Loading...</h1>;
 
   return (
     <>

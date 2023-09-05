@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { ArrowLeftCircleIcon } from "@heroicons/react/24/outline";
+import baseURL from "../../../api";
 import axios from "axios";
 
 function SendDM() {
@@ -32,7 +33,7 @@ function SendDM() {
     e.preventDefault();
 
     try {
-      await axios.post("/api/dm", {
+      await axios.post(baseURL + "/api/dm", {
         ...input,
         to: toId,
         from: userId,

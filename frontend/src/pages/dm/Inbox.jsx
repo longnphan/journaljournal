@@ -8,6 +8,7 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import baseURL from "../../../api";
 import axios from "axios";
 
 function Inbox() {
@@ -20,7 +21,7 @@ function Inbox() {
 
   const getMessages = async () => {
     try {
-      const messages = await axios.get("/api/dm");
+      const messages = await axios.get(baseURL + "/api/dm");
       setMessageList(messages.data);
     } catch (err) {
       console.log(err);
@@ -30,6 +31,8 @@ function Inbox() {
   useEffect(() => {
     getMessages();
   }, []);
+
+  if (!messageList) return <h1>Loading...</h1>;
 
   return (
     <>

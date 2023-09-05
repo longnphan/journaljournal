@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import baseURL from "../../api";
 import axios from "axios";
 
 function InboxItem({ message }) {
@@ -8,7 +9,7 @@ function InboxItem({ message }) {
   const handleClick = async () => {
       // marks DM as read
       try {
-        await axios.patch(`/api/dm/${_id}`);
+        await axios.patch(baseURL + `/api/dm/${_id}`);
         navigate(`/inbox/${_id}`);
       } catch (err) {
         console.log(err);

@@ -9,6 +9,7 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import baseURL from "../../../api";
 import axios from "axios";
 
 function ShowDM() {
@@ -19,7 +20,7 @@ function ShowDM() {
 
   const deleteMessage = async () => {
     try {
-      await axios.delete(`/api/dm/${id}`);
+      await axios.delete(baseURL + `/api/dm/${id}`);
       navigate("/inbox");
     } catch (err) {
       console.log(err);
@@ -28,7 +29,7 @@ function ShowDM() {
 
   const getMessage = async () => {
     try {
-      const message = await axios.get(`/api/dm/${id}`);
+      const message = await axios.get(baseURL + `/api/dm/${id}`);
       setMessageItem(...message.data);
     } catch (err) {
       console.log(err);
@@ -36,12 +37,14 @@ function ShowDM() {
   };
 
   const isReply = () => {
-    setReply(false)
-  }
+    setReply(false);
+  };
 
   useEffect(() => {
     getMessage();
   }, []);
+
+  if (!messageItem) return <h1>Loading...</h1>;
 
   return (
     <>
@@ -59,28 +62,25 @@ function ShowDM() {
           </Typography>
           <p className="mb-2">{messageItem.message}</p>
         </CardBody>
-        {!reply &&
-        <CardFooter className="flex gap-2 pt-0 mx-auto">
-          <Button
-            className="bg-black text-white hover:scale-105"
-            onClick={() => setReply(true)}
-          >
-            Reply
-          </Button>
-          <Button
-            className="bg-black text-white hover:scale-105"
-            onClick={() => deleteMessage()}
-          >
-            Delete
-          </Button>
-        </CardFooter>
-        }
+        {!reply && (
+          <CardFooter className="flex gap-2 pt-0 mx-auto">
+            <Button
+              className="bg-black text-white hover:scale-105"
+              onClick={() => setReply(true)}
+            >
+              Reply
+            </Button>
+            <Button
+              className="bg-black text-white hover:scale-105"
+              onClick={() => deleteMessage()}
+            >
+              Delete
+            </Button>
+          </CardFooter>
+        )}
       </Card>
 
-    {reply &&
-    <ReplyForm isReply={isReply} messageItem={messageItem} />
-    }
-
+      {reply && <ReplyForm isReply={isReply} messageItem={messageItem} />}
     </>
   );
 }
