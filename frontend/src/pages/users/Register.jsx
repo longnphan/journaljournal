@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
+import { setUser } from "../../../store/authSlice";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 
 function Register() {
@@ -12,6 +14,7 @@ function Register() {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleOnChange = e => {
     const name = e.target.name;
@@ -21,10 +24,17 @@ function Register() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    if (input.password !== input.pwConfirm) alert("passwords don't match");
-
-    await axios.post("/api/user", input);
-    navigate("/journal");
+    if (input.password !== input.pwConfirm) {
+      alert("Passwords don't match.");
+      return;
+    }
+    try {
+      const authRes = await axios.post("/api/user", input);
+      dispatch(setUser(authRes.data));
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

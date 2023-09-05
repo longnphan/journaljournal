@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -13,6 +13,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import FriendList from "../components/FriendList";
+import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 
 function Friends() {
@@ -27,6 +28,7 @@ function Friends() {
   const [size, setSize] = useState(null);
 
   const { _id: userId, username } = useSelector(state => state.auth.userInfo);
+  const navigate = useNavigate();
 
   // Opens modal and adds friend
   const handleOpen = async value => {
@@ -43,6 +45,10 @@ function Friends() {
         console.log(err);
       }
     }
+  };
+
+  const handleClick = () => {
+    navigate("/send");
   };
 
   const handleConfirm = () => {
@@ -111,21 +117,44 @@ function Friends() {
             .filter(item => item.isApproved === "true")
             .map(item =>
               item.username === username ? (
-                <Link
+                <div
                   key={item._id}
-                  to={`/friends/${item.friendId}`}
-                  state={{ friendName: item.friendName }}
+                  className="flex justify-between hover:bg-gray-200"
                 >
-                  <p className="text-xl text-blue-700">{item.friendName}</p>
-                </Link>
+                  <Link
+                    to={`/friends/${item.friendId}`}
+                    state={{ friendName: item.friendName }}
+                  >
+                    <p className="text-xl text-blue-700">{item.friendName}</p>
+                  </Link>
+
+                  <Link
+                    to={"/send"}
+                    state={{ toName: item.friendName, toId: item.friendId }}
+                  >
+                    <PencilSquareIcon className="h-4 w-4 ml-1 mt-1 text-black hover:text-gray-600 cursor-pointer" />
+                  </Link>
+                </div>
               ) : (
-                <Link
+                <div
                   key={item._id}
-                  to={`/friends/${item.userId}`}
-                  state={{ friendName: item.username }}
+                  className="flex justify-between hover:bg-gray-200"
                 >
-                  <p className="text-xl text-blue-700">{item.username}</p>
-                </Link>
+                  <Link
+                    to={`/friends/${item.userId}`}
+                    state={{ friendName: item.username }}
+                  >
+                    <p className="text-xl text-blue-700">{item.username}</p>
+                  </Link>
+
+                  <Link
+                    key={item._id}
+                    to={"/send"}
+                    state={{ toName: item.username, toId: item.username }}
+                  >
+                    <PencilSquareIcon className="h-4 w-4 ml-1 mt-1 text-black hover:text-gray-600 cursor-pointer" />
+                  </Link>
+                </div>
               )
             )}
         </CardBody>

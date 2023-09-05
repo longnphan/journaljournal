@@ -1,24 +1,26 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
   Input,
-  Radio,
   Textarea,
   Typography,
 } from "@material-tailwind/react";
-import { useNavigate } from "react-router-dom";
+import { ArrowLeftCircleIcon } from "@heroicons/react/24/outline";
+import axios from "axios";
 
-function Entry() {
+function SendDM() {
   const [input, setInput] = useState({
-    title: "",
+    subject: "",
     message: "",
-    visibility: "only me",
   });
+
   const navigate = useNavigate();
-  const userId = useSelector(state => state.auth.userInfo._id);
+  const location = useLocation();
+  const { toId, toName } = location.state;
+  const { _id: userId, username } = useSelector(state => state.auth.userInfo);
 
   const handleOnChange = e => {
     const name = e.target.name;
@@ -28,9 +30,16 @@ function Entry() {
 
   const handleSubmit = async e => {
     e.preventDefault();
+
     try {
-      await axios.post("/api/journal", { ...input, userId });
-      navigate("/journal");
+      await axios.post("/api/dm", {
+        ...input,
+        to: toId,
+        from: userId,
+        fromUsername: username,
+        username,
+      });
+      navigate("/friends");
     } catch (err) {
       console.log(err);
     }
@@ -38,52 +47,49 @@ function Entry() {
 
   return (
     <Card className="mt-6 my-8 w-96 mx-auto">
+      <ArrowLeftCircleIcon
+        className="h-6 w-6 ml-1 mt-1 cursor-pointer"
+        onClick={() => navigate("/friends")}
+      />
       <Card
         className="flex flex-col items-center"
         color="transparent"
         shadow={false}
       >
         <Typography variant="h4" color="blue-gray">
-          Add New Entry
+          Send DM
         </Typography>
 
         <form className="flex flex-col items-center mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
           <div className="mb-4 w-5/6 flex flex-col gap-6">
+            {/* "to" input is disable */}
             <Input
               size="lg"
-              label="Title"
-              name="title"
-              value={input.title}
+              label="To"
+              name="to"
+              defaultValue={toName}
+              disabled
+            />
+
+            <Input
+              size="lg"
+              label="Subject"
+              name="subject"
+              value={input.subject}
               onChange={handleOnChange}
             />
 
             <Textarea
-              className="h-48"
+              className="h-52"
               size="lg"
               label="Message"
               name="message"
               value={input.message}
               onChange={handleOnChange}
             />
-            <label className="text-sm pl-2">Who can view this?</label>
-            <div className="gap-2 -mt-6">
-              <Radio
-                name="visibility"
-                label="Only Me"
-                value="only me"
-                onChange={handleOnChange}
-                defaultChecked
-              />
-              <Radio
-                name="visibility"
-                label="Friends"
-                value="friends"
-                onChange={handleOnChange}
-              />
-            </div>
           </div>
           <Button className="mt-6 mb-2 flex" onClick={handleSubmit}>
-            Submit
+            Send
           </Button>
         </form>
       </Card>
@@ -91,4 +97,4 @@ function Entry() {
   );
 }
 
-export default Entry;
+export default SendDM;

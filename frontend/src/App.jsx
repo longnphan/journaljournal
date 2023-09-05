@@ -8,6 +8,7 @@ import Inbox from "./pages/dm/Inbox";
 import Journal from "./pages/Journal";
 import Login from "./pages/users/Login";
 import Register from "./pages/users/Register";
+import SendDM from "./pages/dm/SendDM";
 import ShowDM from "./pages/dm/ShowDM";
 import ShowFriends from "./pages/ShowFriends";
 import Update from "./pages/users/Update";
@@ -35,6 +36,7 @@ function App() {
             <Route path="/update" element={<Update />} />
             <Route path="/journal/entry" element={<Entry />} />
             <Route path="/inbox" element={<Inbox />} />
+            <Route path="/send" element={<SendDM />} />
             <Route path="/journal" element={<Journal />} />
             <Route path="/inbox/:id" element={<ShowDM />} />
             <Route path="/journal/:id" element={<Edit />} />

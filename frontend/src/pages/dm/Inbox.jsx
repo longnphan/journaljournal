@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import InboxList from "../../components/InboxList";
-import axios from "axios";
 import {
   Card,
   CardBody,
@@ -8,9 +8,15 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import axios from "axios";
 
 function Inbox() {
   const [messageList, setMessageList] = useState([]);
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/send");
+  };
 
   const getMessages = async () => {
     try {
@@ -32,6 +38,7 @@ function Inbox() {
           <Typography variant="h5" color="blue-gray" className="mb-2">
             Inbox
           </Typography>
+
           {<InboxList messages={messageList} />}
         </CardBody>
       </Card>
