@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { Typography } from "@material-tailwind/react";
 import JournalList from "../components/JournalList";
-import baseURL from "../../../api";
+import baseURL from "../../api";
 
 function Journal() {
   const [journalList, setJournalList] = useState([]);
@@ -12,7 +12,9 @@ function Journal() {
 
   const getEntries = async () => {
     try {
-      const entries = await axios.get(baseURL + "/api/journal", { params: { username } });
+      const entries = await axios.get(baseURL + "/api/journal", {
+        params: { username },
+      });
       setJournalList(entries.data);
     } catch (err) {
       console.log(err);
@@ -23,7 +25,7 @@ function Journal() {
     getEntries();
   }, []);
 
-  if (!journalList) return <h1>Loading...</h1>
+  if (!journalList) return <h1>Loading...</h1>;
 
   return (
     <div className="w-2/5 mx-auto">
