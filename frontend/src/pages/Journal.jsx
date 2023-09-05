@@ -22,6 +22,8 @@ function Journal() {
     getEntries();
   }, []);
 
+  if (!journalList) return <h1>Loading...</h1>
+
   return (
     <div className="w-2/5 mx-auto">
       <Typography variant="h5" color="blue-gray" className="mb-2 mt-6">
