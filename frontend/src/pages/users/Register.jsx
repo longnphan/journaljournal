@@ -23,9 +23,8 @@ function Register() {
     e.preventDefault();
     if (input.password !== input.pwConfirm) alert("passwords don't match");
 
-    const authRes = await axios.post("/api/user", input);
+    await axios.post("/api/user", input);
     navigate("/journal");
-    // const token = authRes.data.token;
   };
 
   return (
@@ -36,7 +35,7 @@ function Register() {
         shadow={false}
       >
         <Typography variant="h4" color="blue-gray">
-          Sign Up
+          Create Account
         </Typography>
         <Typography color="gray" className="mt-1 font-normal">
           Enter your details to register.

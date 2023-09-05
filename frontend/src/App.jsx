@@ -20,8 +20,11 @@ function App() {
     <>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={username ? <Journal /> : <Login />} />
+        <Route
+          path="/register"
+          element={username ? <Navigate to="/" /> : <Register />}
+        />
         {!username ? (
           <Route path="*" element={<Navigate to="/" />} />
         ) : (
