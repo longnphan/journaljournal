@@ -7,6 +7,7 @@ import baseURL from "../../api";
 
 function Journal() {
   const [journalList, setJournalList] = useState([]);
+  console.log("this is baseURL in Journal", baseURL)
 
   const { username } = useSelector(state => state.auth.userInfo);
 
