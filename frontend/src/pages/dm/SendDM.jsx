@@ -37,7 +37,6 @@ function SendDM() {
         to: toId,
         from: userId,
         fromUsername: username,
-        username,
       });
       navigate("/friends");
     } catch (err) {

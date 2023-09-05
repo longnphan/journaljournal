@@ -150,7 +150,7 @@ function Friends() {
                   <Link
                     key={item._id}
                     to={"/send"}
-                    state={{ toName: item.username, toId: item.username }}
+                    state={{ toName: item.username, toId: item.userId }}
                   >
                     <PencilSquareIcon className="h-4 w-4 ml-1 mt-1 text-black hover:text-gray-600 cursor-pointer" />
                   </Link>

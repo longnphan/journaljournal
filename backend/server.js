@@ -5,8 +5,6 @@ const journalRoutes = require("./routes/journalRoutes");
 const friendRoutes = require("./routes/friendRoutes");
 const userRoutes = require("./routes/userRoutes");
 
-const { notFound, errorHandler } = require("./middleware/errorMiddleware");
-
 const express = require("express");
 const cors = require("cors");
 const app = express();
