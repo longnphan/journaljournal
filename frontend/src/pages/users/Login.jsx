@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { setUser } from "../../../store/authSlice";
 import { useDispatch } from "react-redux";
+import baseURL from "../../../api";
 
 function Login() {
   const [input, setInput] = useState({
@@ -24,7 +25,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const authRes = await axios.post("/api/user/auth", input);
+      const authRes = await axios.post(baseURL + "/api/user/auth", input);
       dispatch(setUser(authRes.data));
       navigate("/journal");
     } catch (err) {

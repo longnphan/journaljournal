@@ -3,6 +3,7 @@ import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import { setUser } from "../../../store/authSlice";
 import { useDispatch } from "react-redux";
+import baseURL from "../../../api";
 import axios from "axios";
 
 function Register() {
@@ -29,7 +30,7 @@ function Register() {
       return;
     }
     try {
-      const authRes = await axios.post("/api/user", input);
+      const authRes = await axios.post(baseURL + "/api/user", input);
       dispatch(setUser(authRes.data));
       navigate("/");
     } catch (err) {
