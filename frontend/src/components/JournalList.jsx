@@ -11,7 +11,6 @@ function JournalList({ entries, editable }) {
       ></JournalItem>
     ));
 
-  if (!entries) return <h1>Loading...</h1>;
   return <>{renderJournal}</>;
 }
 

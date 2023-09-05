@@ -9,6 +9,7 @@ import {
   Textarea,
   Typography,
 } from "@material-tailwind/react";
+import baseURL from "../../api";
 import axios from "axios";
 
 function ReplyForm({ isReply, messageItem }) {
@@ -33,7 +34,7 @@ function ReplyForm({ isReply, messageItem }) {
     e.preventDefault();
 
     try {
-      await axios.post("/api/dm", {
+      await axios.post(baseURL + "/api/dm", {
         ...input,
         to: from,
         from: to,

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@material-tailwind/react";
+import baseURL from "../../api";
 import axios from "axios";
 
 function FriendItem({ friend }) {
@@ -8,7 +9,7 @@ function FriendItem({ friend }) {
 
   const handleApprove = async () => {
     try {
-      await axios.put(`/api/friend/${_id}`, {
+      await axios.put(baseURL + `/api/friend/${_id}`, {
         ...friend,
         isApproved: "true",
       });
@@ -20,7 +21,7 @@ function FriendItem({ friend }) {
 
   const handleDecline = async () => {
     try {
-      await axios.put(`/api/friend/${_id}`, {
+      await axios.put(baseURL + `/api/friend/${_id}`, {
         ...friend,
         isApproved: "declined",
       });

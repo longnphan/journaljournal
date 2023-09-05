@@ -3,6 +3,7 @@ import JournalList from "../components/JournalList";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ArrowLeftCircleIcon } from "@heroicons/react/24/outline";
+import baseURL from "../../api";
 import axios from "axios";
 
 function ShowFriends() {
@@ -13,7 +14,7 @@ function ShowFriends() {
 
   const getFriendJournal = async () => {
     try {
-      const entries = await axios.get(`/api/journal/${id}`);
+      const entries = await axios.get(baseURL + `/api/journal/${id}`);
       const filteredEntries = entries.data.filter(
         item => item.visibility === "friends"
       );

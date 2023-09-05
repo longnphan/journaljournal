@@ -8,6 +8,7 @@ import {
   Textarea,
   Typography,
 } from "@material-tailwind/react";
+import baseURL from "../../api";
 import axios from "axios";
 
 function Help() {
@@ -29,7 +30,7 @@ function Help() {
     e.preventDefault();
 
     try {
-      await axios.post("/api/dm", {
+      await axios.post(baseURL + "/api/dm", {
         ...input,
         to: "64ee2e434a748f8e53b07c50",
         from: userId,
