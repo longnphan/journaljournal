@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
+import { setUser } from "../../../store/authSlice";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 
 function Register() {
@@ -12,6 +14,7 @@ function Register() {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleOnChange = e => {
     const name = e.target.name;
@@ -21,11 +24,17 @@ function Register() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    if (input.password !== input.pwConfirm) alert("passwords don't match");
-
-    const authRes = await axios.post("/api/user", input);
-    navigate("/journal");
-    // const token = authRes.data.token;
+    if (input.password !== input.pwConfirm) {
+      alert("Passwords don't match.");
+      return;
+    }
+    try {
+      const authRes = await axios.post("/api/user", input);
+      dispatch(setUser(authRes.data));
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -36,7 +45,7 @@ function Register() {
         shadow={false}
       >
         <Typography variant="h4" color="blue-gray">
-          Sign Up
+          Create Account
         </Typography>
         <Typography color="gray" className="mt-1 font-normal">
           Enter your details to register.
