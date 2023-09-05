@@ -12,8 +12,8 @@ const {
 router.route("/").post(createJournal).get(getJournal);
 router
   .route("/:id")
-  .get(protect, getJournalByID)
-  .delete(protect, deleteJournal)
-  .put(protect, updateJournal);
+  .get(getJournalByID)
+  .delete(deleteJournal)
+  .put(updateJournal);
 
 module.exports = router;
