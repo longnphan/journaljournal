@@ -19,7 +19,6 @@ const authSlice = createSlice({
       localStorage.setItem("expirationTime", expirationTime);
     },
     logout: state => {
-      console.log("User is logged out");
       state.userInfo = null;
       localStorage.removeItem("userInfo");
     },
