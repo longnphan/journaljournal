@@ -8,7 +8,6 @@ const userRoutes = require("./routes/userRoutes");
 const express = require("express");
 const cors = require("cors");
 const app = express();
-app.set("trust proxy", 1);
 const PORT = 8080;
 
 const connectDB = require("./config");
