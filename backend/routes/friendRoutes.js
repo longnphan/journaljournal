@@ -9,6 +9,6 @@ const {
 } = require("../controllers/friendController");
 
 router.route("/").post(createFriend).get(getFriends);
-router.route("/:id").put(protect, updateFriend).delete(protect, deleteFriend);
+router.route("/:id").put(updateFriend).delete(deleteFriend);
 
 module.exports = router;

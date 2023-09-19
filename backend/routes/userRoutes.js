@@ -15,10 +15,6 @@ router.route("/").post(registerUser).get(getUsers);
 router.post("/auth", authUser);
 router.post("/logout", logoutUser);
 
-router
-  .route("/:id")
-  .delete(protect, admin, deleteUser)
-  .get(protect, admin, getUserById)
-  .put(protect, admin, updateUser);
+router.route("/:id").delete(deleteUser).get(getUserById).put(updateUser);
 
 module.exports = router;
