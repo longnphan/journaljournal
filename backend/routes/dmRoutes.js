@@ -12,8 +12,8 @@ const {
 router.route("/").post(createDm).get(getDms);
 router
   .route("/:id")
-  .get(protect, getDm)
-  .patch(protect, updateDm)
-  .delete(protect, deleteDm);
+  .get(getDm)
+  .patch(updateDm)
+  .delete(deleteDm);
 
 module.exports = router;
