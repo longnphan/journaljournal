@@ -10,6 +10,7 @@ import {
   Textarea,
   Typography,
 } from "@material-tailwind/react";
+import baseURL from "../../api";
 import axios from "axios";
 
 function Edit() {
@@ -44,7 +45,7 @@ function Edit() {
 
     console.log("this is input inside of Edit.jsx:", input);
     try {
-      await axios.put(`/api/journal/${id}`, { ...input, userId });
+      await axios.put(baseURL + `/api/journal/${id}`, { ...input, userId });
       navigate("/journal");
     } catch (err) {
       console.log(err);

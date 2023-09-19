@@ -9,6 +9,7 @@ import {
   Textarea,
   Typography,
 } from "@material-tailwind/react";
+import baseURL from "../../api";
 import { useNavigate } from "react-router-dom";
 
 function Entry() {
@@ -29,7 +30,7 @@ function Entry() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await axios.post("/api/journal", { ...input, userId });
+      await axios.post(baseURL + "/api/journal", { ...input, userId });
       navigate("/journal");
     } catch (err) {
       console.log(err);

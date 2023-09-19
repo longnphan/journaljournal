@@ -4,9 +4,7 @@ import InboxList from "../../components/InboxList";
 import {
   Card,
   CardBody,
-  CardFooter,
   Typography,
-  Button,
 } from "@material-tailwind/react";
 import baseURL from "../../../api";
 import axios from "axios";
