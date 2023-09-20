@@ -16,6 +16,8 @@ function FriendList({ friends }) {
     .reverse()
     .map(item => <FriendItem key={item._id} friend={item}></FriendItem>);
 
+  if (!friends) return <h1>Loading...</h1>;
+
   return (
     <>
       <Typography variant="h5" color="blue-gray" className="mb-2">
