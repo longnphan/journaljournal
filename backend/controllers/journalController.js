@@ -4,10 +4,9 @@ const asyncHandler = require("../middleware/asyncHandler");
 
 // Get all journal entries by user
 const getJournal = asyncHandler(async (req, res) => {
-  token = req.cookies.jwt;
-  const { userId } = jwt.verify(token, process.env.JWT_SECRET);
+  const user = req.userId;
 
-  const entries = await Journal.find({ userId });
+  const entries = await Journal.find({ user });
 
   if (entries) {
     res.status(200).json(entries);
