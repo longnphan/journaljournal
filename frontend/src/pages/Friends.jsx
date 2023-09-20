@@ -73,7 +73,7 @@ function Friends() {
     try {
       const friends = await axios.get("/api/friend", {
         headers: {
-          "userid": userId,
+          userid: userId,
         },
       });
       setFriendsList(friends.data);
@@ -104,7 +104,7 @@ function Friends() {
     getFriends();
   }, []);
 
-  if (!friendsList) return <h1>Loading...</h1>;
+  if (!friendsList || !userList) return <h1>Loading...</h1>;
 
   return (
     <>
