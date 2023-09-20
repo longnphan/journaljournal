@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -13,7 +13,6 @@ import {
   Button,
 } from "@material-tailwind/react";
 import FriendList from "../components/FriendList";
-import FriendStatus from "../components/FriendStatus";
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import baseURL from "../../api";
@@ -30,6 +29,7 @@ function Friends() {
   const [size, setSize] = useState(null);
 
   const { _id: userId, username } = useSelector(state => state.auth.userInfo);
+  const navigate = useNavigate();
 
   // Opens modal and adds friend
   const handleOpen = async value => {
@@ -46,6 +46,10 @@ function Friends() {
         console.log(err);
       }
     }
+  };
+
+  const handleClick = () => {
+    navigate("/send");
   };
 
   const handleConfirm = () => {
@@ -72,7 +76,7 @@ function Friends() {
 
   const getFriends = async () => {
     try {
-      const friends = await axios.get("/api/friend", {
+      const friends = await axios.get(baseURL + "/api/friend", {
         headers: {
           userid: userId,
         },
@@ -105,7 +109,7 @@ function Friends() {
     getFriends();
   }, []);
 
-  if (!friendsList || !userList) return <h1>Loading...</h1>;
+  if (!friendsList) return <h1>Loading...</h1>;
 
   return (
     <>
@@ -116,14 +120,50 @@ function Friends() {
             Friends
           </Typography>
 
+          {friendsList
+            .filter(item => item.isApproved === "true")
+            .map(item =>
+              item.username === username ? (
+                <div
+                  key={item._id}
+                  className="flex justify-between hover:bg-gray-200"
+                >
+                  <Link
+                    to={`/friends/${item.friendId}`}
+                    state={{ friendName: item.friendName }}
+                  >
+                    <p className="text-xl text-blue-700">{item.friendName}</p>
+                  </Link>
 
-          <FriendStatus friendsList={friendsList} />
+                  <Link
+                    to={"/send"}
+                    state={{ toName: item.friendName, toId: item.friendId }}
+                  >
+                    <PencilSquareIcon className="h-4 w-4 ml-1 mt-1 text-black hover:text-gray-600 cursor-pointer" />
+                  </Link>
+                </div>
+              ) : (
+                <div
+                  key={item._id}
+                  className="flex justify-between hover:bg-gray-200"
+                >
+                  <Link
+                    to={`/friends/${item.userId}`}
+                    state={{ friendName: item.username }}
+                  >
+                    <p className="text-xl text-blue-700">{item.username}</p>
+                  </Link>
 
-
-
-
-
-
+                  <Link
+                    key={item._id}
+                    to={"/send"}
+                    state={{ toName: item.username, toId: item.userId }}
+                  >
+                    <PencilSquareIcon className="h-4 w-4 ml-1 mt-1 text-black hover:text-gray-600 cursor-pointer" />
+                  </Link>
+                </div>
+              )
+            )}
         </CardBody>
       </Card>
 
