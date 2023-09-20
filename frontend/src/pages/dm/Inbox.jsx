@@ -1,25 +1,22 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import InboxList from "../../components/InboxList";
-import {
-  Card,
-  CardBody,
-  Typography,
-} from "@material-tailwind/react";
+import { Card, CardBody, Typography } from "@material-tailwind/react";
 import baseURL from "../../../api";
 import axios from "axios";
 
 function Inbox() {
   const [messageList, setMessageList] = useState([]);
-  const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate("/send");
-  };
+  const { _id: userId } = useSelector(state => state.auth.userInfo);
 
   const getMessages = async () => {
     try {
-      const messages = await axios.get(baseURL + "/api/dm");
+      const messages = await axios.get(baseURL + "/api/dm", {
+        headers: {
+          userid: userId,
+        },
+      });
       setMessageList(messages.data);
     } catch (err) {
       console.log(err);
