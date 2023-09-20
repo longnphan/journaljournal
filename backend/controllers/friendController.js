@@ -4,8 +4,7 @@ const asyncHandler = require("../middleware/asyncHandler");
 
 // Get all friends whether they are approved or not
 const getFriends = asyncHandler(async (req, res) => {
-  token = req.cookies.jwt;
-  const { userId } = jwt.verify(token, process.env.JWT_SECRET);
+  userId = req.headers.userid;
 
   const friends = await Friend.find({
     $or: [{ userId }, { friendId: userId }],

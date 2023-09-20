@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardBody,
@@ -29,7 +29,6 @@ function Friends() {
   const [size, setSize] = useState(null);
 
   const { _id: userId, username } = useSelector(state => state.auth.userInfo);
-  const navigate = useNavigate();
 
   // Opens modal and adds friend
   const handleOpen = async value => {
@@ -46,10 +45,6 @@ function Friends() {
         console.log(err);
       }
     }
-  };
-
-  const handleClick = () => {
-    navigate("/send");
   };
 
   const handleConfirm = () => {
@@ -76,7 +71,11 @@ function Friends() {
 
   const getFriends = async () => {
     try {
-      const friends = await axios.get(baseURL + "/api/friend");
+      const friends = await axios.get("/api/friend", {
+        headers: {
+          "userid": userId,
+        },
+      });
       setFriendsList(friends.data);
     } catch (err) {
       console.log(err);

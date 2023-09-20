@@ -4,7 +4,6 @@ const asyncHandler = require("../middleware/asyncHandler");
 
 const createDm = asyncHandler(async (req, res) => {
   const message = await Dm.create({ ...req.body });
-  // const message = await Dm.create({ ...req.body, from: req.username });
 
   if (message) {
     res.status(201).json(message);
@@ -16,8 +15,7 @@ const createDm = asyncHandler(async (req, res) => {
 
 // Get all direct messages
 const getDms = asyncHandler(async (req, res) => {
-  const token = req.cookies.jwt;
-  const { userId } = jwt.verify(token, process.env.JWT_SECRET);
+  userId = req.headers.userid;
 
   const messages = await Dm.find({ to: userId });
   
@@ -59,9 +57,6 @@ const updateDm = asyncHandler(async (req, res) => {
 
 // Get direct message by ID
 const getDm = asyncHandler(async (req, res) => {
-  const token = req.cookies.jwt;
-  const { userId } = jwt.verify(token, process.env.JWT_SECRET);
-
   const message = await Dm.find({ _id: req.params.id });
 
   if (message) {
