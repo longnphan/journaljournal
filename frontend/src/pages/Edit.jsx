@@ -27,7 +27,7 @@ function Edit() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`/api/journal/${id}`);
+      await axios.delete(baseURL + `/api/journal/${id}`);
       navigate("/journal");
     } catch (err) {
       console.log(err);

@@ -115,7 +115,7 @@ function Friends() {
             Friends
           </Typography>
 
-          {friendsList
+          {friendsList && friendsList
             .filter(item => item.isApproved === "true")
             .map(item =>
               item.username === username ? (
