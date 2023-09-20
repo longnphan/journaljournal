@@ -24,9 +24,3 @@
 - Tailwind CSS
 - Material Tailwind
 - Axios
-
-### Unsolved problems
-* Getting app to work with HttpOnly cookie and render.
-
-### Future Enchancements
-* Rebuild in Next.js
