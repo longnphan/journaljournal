@@ -1,7 +1,5 @@
 # Journal++
 
-## Trello board at: https://trello.com/b/b6bnEn0F/mod-3-project
-
 ## Hosted at: https://journal-frontend-76m1.onrender.com
 
 ## Introduction
